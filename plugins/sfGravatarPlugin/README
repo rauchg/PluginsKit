@@ -1,0 +1,75 @@
+# sfGravatarPlugin symfony plugin
+
+## Overview
+
+Lets you easily use Gravatar from [http://site.gravatar.com](http://site.gravatar.com). Currently supports:
+
+  * caching of the gravatars, with a configurable expiration delay
+  * all gravatar options (rating, resizing, etc.)
+
+## Installation
+
+### Step 1
+
+        symfony plugin-install http://plugins.symfony-project.com/sfGravatarPlugin
+
+        symfony cc
+
+### Step 2
+
+Create a directory named ``g_cache`` in ``web/uploads`` and add full rights to it (note : you can change the directory's name but don't forget to change it in config file).
+
+### Step 3 (optional)
+
+  * You can configure you gravatar plugin to your needs by adding the config above in your ``app.yml``
+  * You can copy the ``gravatar_default.png`` in your cache directory or create yours
+
+## Usage
+
+        <?php use_helper(&#039;Gravatar&#039;) ?>
+
+        <?php echo gravatar_image_tag($email, $gravatar_rating = null, $gravatar_size = null) ?>
+
+
+More information about rating and size on [the gravatar website](http://site.gravatar.com).
+
+You can set some default option that are common for all of your gravatar in your app.yml:
+
+        all:
+          gravatar:
+            default_size:   80
+            default_rating: G
+            default_image:  gravatar_default.png
+            cache_dir_name: g_cache
+            cache_expiration: 3 days # refer to strtotime() php function for more infos, but you can write 1 week, 1 year, whatever you want
+
+The gravatars will be saved in cache under Symfony's upload dir, according to the setting of your Symfony's setup.
+
+## License
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+The plugin is being developed by Mickael Kurmann (mickael.kurmann <<at>> gmail.com) and [Xavier Lacot](http://lacot.org/) (xavier@lacot.org)
+
+## Todo
+
+  * automatically remove cached gravatar through a cron
+  * add unit tests
+
+## Changelog
+
+### version 0.9 - 2009-01-12:
+
+ * fixed bug under windows with backslashed paths
+ * added compatibility with Symfony 1.1 and 1.2 (Xavier)
+
+### version 0.8 - 2008-08-10:
+
+ * stable release
+ * changed documentation to Markdown format (Xavier)
+ * added cache for non-existing gravatar emails (Xavier)
+
+### version 0.0.1 - 2007-09-22:
+
+ * initial release (Mickael)

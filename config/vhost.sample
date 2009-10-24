@@ -1,0 +1,21 @@
+    # Be sure to only have this line once in your configuration
+    NameVirtualHost 127.0.0.1:80
+
+    # This is the configuration for mooforge
+    Listen 127.0.0.1:80
+
+    <VirtualHost 127.0.0.1:80>
+      ServerName mooforge.localhost
+      DocumentRoot "/Users/willy/Sites/Personal/MooForge/web"
+      DirectoryIndex index.php
+      <Directory "/Users/willy/Sites/Personal/MooForge/web">
+        AllowOverride All
+        Allow from All
+      </Directory>
+
+      Alias /sf ""
+      <Directory "">
+        AllowOverride All
+        Allow from All
+      </Directory>
+    </VirtualHost>

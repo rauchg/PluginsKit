@@ -1,0 +1,139 @@
+# sfSphinxPlugin
+
+## Overview
+
+This plugin integrates [Sphinx search engine](http://www.sphinxsearch.com/)
+
+## Installation
+
+To install:
+
+    $ symfony plugin-install http://plugins.symfony-project.com/sfSphinxPlugin
+
+or
+
+    $ symfony plugin:install sfSphinxPlugin
+
+## Usage
+
+First of all, you should setup **Sphinx** on your machine. [How-to](http://komunitasweb.com/2009/03/sphinx-search-introduction/)
+Please refer to [offical documentation](http://www.sphinxsearch.com/docs/manual-0.9.9.html).
+
+This is a very basic configuration file you can use for testing purpose
+(anyway, **it needs to be adapted** to your real data, see inline comments)
+
+    searchd
+    {
+      address      = 127.0.0.1
+      port         = 3312
+    }
+
+    source mydummysrc
+    {
+      type               = mysql
+      sql_host           = localhost
+      sql_user           = myuser # adapt!
+      sql_pass           = mypassword # adapt!
+      sql_db             = mydatabase # adapt!
+      sql_query          = SELECT id,name,UNIX_TIMESTAMP(created_at) created_at,updated_at \
+                           FROM item # adapt!
+      sql_attr_timestamp = created_at
+      sql_attr_uint      = id
+    }
+
+    index mydummyindex
+    {
+      source       = mydummysrc
+      min_word_len = 3
+      charset_type = utf-8
+    }
+
+Then you can test if everything is fine using the included file `data/test.php` from CLI.
+
+    $ php data/test.php "your query here"
+
+For a real usage, use this example in your action file:
+
+    [php]
+    public function executeSearch()
+    {
+      $this->query = $this->getRequestParameter('q');
+      $this->page = $this->getRequestParameter('p', 1);
+      $options = array(
+        'limit'   => 10,
+        'offset'  => ($this->page - 1) * 10,
+        'weights' => array(100, 1),
+        'sort'    => sfSphinxClient::SPH_SORT_EXTENDED,
+        'sortby'  => '@weight DESC',
+      );
+      if (!empty($this->query))
+      {
+        $this->sphinx = new sfSphinxClient($options);
+        $res = $this->sphinx->Query($this->query, 'mydummyindex');
+        $this->pager = new sfSphinxPager('Item', $options['limit'], $this->sphinx);
+        $this->pager->setPage($this->page);
+        $this->pager->setPeerMethod('retrieveByPKs');
+        $this->pager->init();
+        $this->logMessage('Sphinx search "' . $this->query . '" [' . $res['time'] .
+                          's] found ' . $this->pager->getNbResults() . ' matches');
+      }
+    }
+
+and in your template (classes and methods **to be adapted**, see inline comments):
+
+    [php]
+    <?php use_helper('Search') ?>
+    <form action="<?php echo url_for('/yourModule/search') ?>" method="get">
+    <?php echo label_for('q', 'search:') ?>
+    <?php echo input_tag('q', $query) ?>
+    <?php echo submit_tag() ?>
+    </form>
+
+    <?php if (empty($query)): ?>
+    <?php return ?>
+    <?php endif ?>
+
+    <?php $res = $pager->getResults() ?>
+    <?php if (empty($res)): ?>
+    No result matches your query
+    <?php else: ?>
+    <?php if ($sphinx->getLastWarning()): ?>
+    Warning: <?php echo $sphinx->getLastWarning() ?>
+    <?php endif ?>
+    <ol start="<?php echo $pager->getFirstIndice() ?>">
+    <?php foreach ($res as $item): ?>
+      <li>
+        <?php echo link_to(highlight_search_result($item->getName(), $query), 'itemModule/itemShowAction?id=' . $item->getId()) ?> <!-- adapt! -->
+        <?php echo highlight_search_result($item->getDescription(), $query) ?> <!-- adapt! -->
+        <?php echo $item->getCreatedAt() ?> <!-- adapt! -->
+      </li>
+    <?php endforeach ?>
+    </ol>
+    <?php endif ?>
+
+    <?php if ($pager->haveToPaginate()): ?>
+      <?php echo link_to('&laquo;', 'yourModule/search?q=' . $query . '&p=' . $pager->getFirstPage()) ?>
+      <?php echo link_to('&lt;', 'yourModule/search?q=' . $query . '&p=' . $pager->getPreviousPage()) ?>
+      <?php $links = $pager->getLinks()?>
+      <?php foreach ($links as $page): ?>
+        <?php echo ($page == $pager->getPage()) ? $page : link_to($page, 'yourModule/search?q=' . $query . '&p=' . $page) ?>
+      <?php endforeach ?>
+      <?php echo link_to('&gt;', 'yourModule/search?q=' . $query . '&p=' . $pager->getNextPage()) ?>
+      <?php echo link_to('&raquo;', 'yourModule/search?q=' . $query . '&p=' . $pager->getLastPage()) ?>
+    <?php endif ?>
+
+## Helper
+
+You can use the included `SearchHelper` static class to highlight search words
+in results, with `highlight_search_result()` helper.
+The `get_search_results()` and `search_pager()` helpers are now deprecated:
+you could use them to retrieve results corresponding to Sphinx found ids and to
+manually paginate, but it's better to use `sfSphinxPropelPager` class.
+Be aware: `get_search_results()` requires PHP 5.2.3 as minimum version.
+Since version 0.0.7, if you prefer Doctrine, you can use `sfSphinxDoctrinePager` class
+instead of `sfSphinxPropelPager`.
+
+## License
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.

@@ -1,0 +1,65 @@
+= sfPropelActAsSluggableBehaviorPlugin plugin =
+
+This `sfPropelActAsSluggableBehaviorPlugin` plugin that automates the generation of 'slugs' based on the return value of a model method. These are useful to hide the primary key in routing requests, and make your urls look fancy.
+
+For example, for a blog post whose title is 'A post', this behavior will fill the slug database
+field with 'a_post'. If a_post exists, a_post_1 is used, and so on.
+
+== Instalation ==
+
+  * Install the plugin
+
+    {{{
+      symfony plugin-install http://plugins.symfony-project.com/sfPropelActAsSluggableBehaviorPlugin
+    }}}
+  
+  * Add the slug field to your schema.yml for a desired table
+  
+    {{{  
+    ...
+    title:      varchar(255)
+    slug:       varchar(255)
+    ...
+    }}}
+  
+  * Enable Propel behavior support in `propel.ini`:
+
+    {{{
+      propel.builder.AddBehaviors = true
+    }}}
+  
+    If you have to enable the behavior support, rebuild your model:
+
+    {{{
+      symfony propel-build-model
+    }}}
+    
+  * Enable the behavior for one of your Propel model:
+  
+    {{{
+    #!php
+    <?php
+      // lib/model/ForumPost.php
+      class ForumPost
+      {
+      }
+
+      $columns_map = array('from'   => ForumPostPeer::TITLE,
+                           'to'     => ForumPostPeer::SLUG);
+
+      sfPropelBehavior::add('ForumPost', array('sfPropelActAsSluggableBehavior' => array('columns' => $columns_map, 'separator' => '_', 'permanent' => true)));
+    }}}
+    
+    The ''column map'' is used by the behavior to know which columns hold information it needs :
+
+      * from : Model column holding the string to convert. For example, the post title. ('title' by default)
+      * to : Model column holding the generated string, aka slug. ('slug' by default)
+
+    The ''separator'' parameter is used by the behavior to replace the whitespaces. ('-' by default)
+    The ''permanent'' paramter is used by the behavior to avoid generating the slug when the model is updating the ''from'' column, useful for permalinks. (false by default)
+
+
+== Usage ==
+
+Every time a post is saved, the slug will be generated automatically. You can later access it
+through ->getSlug() for example.

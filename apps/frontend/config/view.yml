@@ -1,0 +1,17 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        MooTools Plugins
+    description:  Directory of MooTools plugins contributed by the community.
+    keywords:     mootools plugins, javascript plugins, mootools addons, mootools ui, mootools widgets, widgets, addons, plugins
+    language:     en
+    robots:       index, follow
+
+  stylesheets:    [forge.css]
+
+  javascripts:    [mootools-1.2.2-core+more.js, lighter.js, forge.js]
+
+  has_layout:     on
+  layout:         layout

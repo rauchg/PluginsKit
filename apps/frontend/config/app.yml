@@ -1,0 +1,35 @@
+prod:
+  git:
+    command:            /usr/bin/git
+  
+  twitter:
+    consumer_key:       aOJF4vb2nF5nN7LGSVJXMg
+    consumer_secret:    t6AjqQl7nOk2QhXxjcezy2eLaQv7KMggZD61jkJoNo
+    
+dev:
+  git:
+    command:            /opt/local/bin/git
+  
+  twitter:
+    consumer_key:       FrPf98reevKh2BGKzqRoA
+    consumer_secret:    LiIKnnribXNt2VHXHXbAnZpeo0gtDVnA2gsSFSrWPsw
+
+# default values
+all:
+  git:
+    storage_path:       <?php echo sfConfig::get('sf_root_dir') ?>/git/
+  
+  plugin:
+    # Dev loose mode lessens the checks for submission in dev environment
+    dev_loose_mode:     on
+  
+  browse:
+    # How many to display per page
+    per_page:           10    
+  
+  gravatar:
+    default_size:       48
+    default_rating:     G
+    default_image:      gravatar-48.png
+    cache_dir_name:     avatars
+    cache_expiration:   3 days

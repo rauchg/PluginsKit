@@ -1,0 +1,107 @@
+search:
+  url:  /search/*
+  param: { module: search, action: index }
+
+recentfeed:
+  url:  /feed/recent/:format
+  param: { module: feed, action: recent, format: rss201 }
+
+download:
+  url:  /download/:project/:tag
+  param: { module: default, action: download }
+
+twitterlogin:
+  url:  /login/twitter
+  param: { module: user, action: loginTwitter }
+
+login:
+  url:  /login
+  param: { module: user, action: login }
+
+pluginguidelines:
+  url:  /plugin-guidelines
+  param: { module: pages, action: guidelines }
+
+developers:
+  url:  /developers/*
+  params: { module: developers } 
+
+howtoadd:
+  url:  /how-to-add
+  param: { module: pages, action: howToAdd }
+
+settings:
+  url:  /settings
+  param: { module: user, action: edit }
+
+logout:
+  url:  /logout
+  param: { module: user, action: logout }
+
+add:
+  url:  /add
+  param: { module: plugin, action: add }
+
+add-2:
+  url:  /add-2
+  param: { module: plugin, action: add2 }
+  
+add-3:
+  url:  /add-3
+  param: { module: plugin, action: add3 }  
+  
+add-4:
+  url:  /add-4
+  param: { module: plugin, action: add4 }
+  
+add-5:
+  url:  /add-5
+  param: { module: plugin, action: add5 }
+  
+add-6:
+  url:  /add-6
+  param: { module: plugin, action: add6 }      
+  
+user:
+  url:  /profile/:username
+  param: { module: user, action: view }
+
+pluginupdate:
+  url:  /p/:slug/update/*
+  param: { module: plugin, action: update }
+
+plugindiscuss:
+  url:  /p/:slug/discuss/*
+  param: { module: plugin, action: discuss }
+
+plugin:
+  url:  /p/:slug/*
+  param: { module: plugin, action: view }
+
+signup:
+  url:  /signup
+  param: { module: user, action: signup }
+
+forgot:
+  url:  /login/forgot
+  param: { module: user, action: forgot }
+
+browse:
+  url:  /browse/*
+  param: { module: browse, action: filter }
+
+twitter:
+  url:  /twitter
+  param: { module: user, action: index }
+
+# default rules
+homepage:
+  url:   /
+  param: { module: default, action: index }
+
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

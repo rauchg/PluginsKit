@@ -1,0 +1,104 @@
+propel:
+  # Authors
+  author:
+    id:
+    username:             { type: varchar(100), required: true}
+    email:                { type: varchar(100), required: true}
+    password:             varchar(100)
+    fullname:             { type: varchar(100), required: true}
+    location:             { type: varchar(100), required: true}
+    homepageurl:          varchar(255)
+    about:                varchar(255)
+    avatar:               varchar(200)
+    twitter_id:           varchar(50)
+    checkhash:            varchar(255)
+    plugins_count:        { type: integer, default: 0 }
+    confirmed_email:      boolean    
+    admin:                boolean
+    logged_at:            timestamp
+    created_at:
+    _uniques:
+      unique_email:       [email]
+      unique_username:    [username]
+  
+  # Git tags for the plugin. Fetched from GitHub
+  plugin:
+    id:
+    author_id:         { type: integer, foreignTable: author, foreignReference: id, onDelete: setnull }
+    category_id:       { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    stable_tag_id:     { type: integer, foreignTable: plugin_tag, foreignReference: id, onDelete: setnull }
+    title:             varchar(255)
+    slug:              varchar(255)
+    description:       longvarchar
+    description_clean: longvarchar
+    official:          boolean
+    docsurl:           varchar(255)    
+    demourl:           varchar(255)    
+    githubuser:        varchar(100)    
+    githubrepo:        varchar(100)  
+    howtouse:          longvarchar
+    comments_count:    { type: integer, default: 0 }      
+    downloads_count:   { type: integer, default: 0 }      
+    retrieved_at:      timestamp
+    updated_at:     
+    created_at:     
+    _uniques:
+      unique_title:    [title]
+      unique_slug:     [slug]
+      unique_repo:     [githubuser, githubrepo]
+      
+  plugin_section:
+    id:
+    plugin_id:        { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
+    title:            varchar(255)
+    content:          longvarchar
+    created_at:
+    _uniques:
+      unique_title:   [title]
+      
+  plugin_screenshot:
+    id:
+    plugin_id:        { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
+    title:            varchar(255)    
+    url:              varchar(255)
+    primary:          { type: boolean, default: false }
+    created_at:
+
+  # Dependencies for the plugin. Fetched from GitHub    
+  plugin_dependency:
+    id:
+    plugin_id:        { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
+    # Used if the dependency is some version of a plugin existing in the forge
+    plugin_tag_id:    { type: integer, foreignTable: plugin_tag, foreignReference: id, onDelete: cascade }          
+    url:              varchar(255)
+    title:            varchar(255)
+    created_at:
+    
+  # Git tags for the plugin. Fetched from GitHub
+  plugin_tag:
+    id:
+    plugin_id:        { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
+    name:             varchar(50)
+    downloads_count:  integer
+    current:          boolean    
+    created_at:     
+    _uniques:
+      unique_name:    [plugin_id, name]
+    
+  # Tags/categories for the plugin. Fetched from GitHub        
+  term:
+    id:
+    title:          varchar(255)
+    slug:           varchar(255)
+    count:          integer
+    category:       { type: boolean, default: false }
+    _uniques:
+      unique_title: [title]
+      unique_slug:  [slug]
+    
+  term_relationship:
+    id:
+    plugin_id:      { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
+    term_id:        { type: integer, foreignTable: term, foreignReference: id, onDelete: cascade }
+    _uniques:
+      unique_rel:   [plugin_id, term_id]

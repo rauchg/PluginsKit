@@ -1,0 +1,334 @@
+/* -----------------------------------------------------------------------
+
+   MooTools.net Main Style.
+
+   Copyright (c) 2006-2008 Valerio Proietti, http://mad4milk.net.
+
+----------------------------------------------------------------------- */
+
+/* @group Generic */
+
+body {
+	font-family: Helvetica;
+	color: #313334;
+	background: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #313334;
+	font-weight: bold;
+}
+
+a:link, a:visited {
+	color: #6b7b95;
+}
+
+a:hover, a:active {
+	color: #e79d35;
+}
+
+a.selected:link, a.selected:visited {
+	color: #222;
+}
+
+em {
+	font-style: normal;
+	color: #686c70;
+}
+
+p {
+	font-size: 1.2em;
+}
+
+/* @end */
+
+/* @group BluePrint */
+
+body .colborder {
+	border-color: #ddd;
+}
+
+body hr {
+	background-color: #ddd;
+}
+
+p.large {
+	line-height: 1.5;
+	font-size: 1.5em;
+}
+
+p.quiet {
+	color: #686c70;
+	line-height: 1.6;
+	font-size: 1.2em;
+}
+
+/* @end */
+
+/* @group Headings */
+
+#main h3 {
+	margin-bottom: 0.5em;
+	padding-bottom: 0.4em;
+}
+
+h3.blue {
+	color: #6b7b95;
+}
+
+h3.red {
+	color: #c17878;
+}
+
+h3.green {
+	color: #78ba91;
+}
+
+h3.purple {
+	color: #a87aad;
+}
+
+#sidebar h4 {
+	color: #686c70;
+	margin-bottom: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+/* @end */
+
+/* @group Home and Sidebar */
+
+.block p, #links p {
+	margin-bottom: 0;
+}
+
+.block {
+	margin-bottom: 1.3em;
+}
+
+#sidebar ul {
+	list-style: none;
+	padding-left: 0.5em;
+	margin-left: 0;
+	border-left: 2px solid #eee;
+}
+
+#links a {
+	font-size: 1.2em;
+	margin-right: 0.6em;
+}
+
+/* @end */
+
+/* @group Downloads */
+
+td, th {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+td {
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #f4f5f5;
+}
+
+th {
+	text-shadow: 0 1px rgba(255, 255, 255, 0.8);
+	border-bottom: 1px solid #d4d4d4;
+	padding-top: 0.6em;
+	color: #686c70;
+	background: #eee url(/images/gradient-bottom.png) bottom left repeat-x;
+}
+
+.last {
+	border-right: 0;
+}
+
+tr.last td {
+	border-bottom: none;
+}
+
+th.name {
+	width: 30%;
+}
+
+th.size, td.size {
+	padding-right: 1em;
+	text-align: right;
+}
+
+td.name {
+	font-weight: bold;
+	width: 1%;
+	white-space: nowrap;
+}
+
+td.check {
+	width: 1%;
+	text-align: center;
+}
+
+tr.check, tr.radio {
+	cursor: pointer;
+	background: #f4f5f5 url(/images/gradient-invert.png) bottom left repeat-x;
+}
+
+div.input {
+	overflow: hidden;
+	height: 10px;
+	width: 10px;
+	border-width: 2px;
+	border-style: solid;
+}
+
+tr.radio div.input {
+	-webkit-border-radius: 7px;
+}
+
+tr.check div.input {
+	-webkit-border-radius: 2px;
+}
+
+input[type=radio], input[type=checkbox] {
+	height: 8px;
+	width: 8px;
+}
+
+a.info-link:link, a.info-link:visited {
+	display: block;
+	text-decoration: none;
+	color: #ddd;
+	font-weight: bold;
+	text-shadow: 0 1px rgba(255, 255, 255, 1);
+}
+
+tr:hover a.info-link {
+	color: #6b7b95;
+}
+
+td.info-link {
+	width: 1%;
+}
+
+/* @group Developers */
+
+h2.dev {
+	line-height: 1.1;
+	font-size: 15px;
+	margin-bottom: 0;
+	margin-left: 80px;
+	padding: 5px 0 4px;
+}
+
+h2.dev span {
+	font-weight: normal;
+	font-size: 9px;
+	font-family: Andale Mono, Monaco, Courier New, Monospace;
+}
+
+div.icon {
+	float: left;
+	height: 65px;
+	width: 65px;
+	background: #1d1d20;
+	border: 3px solid #ccc;
+}
+
+hr.dev {
+	margin: 0;
+}
+
+div.dev {
+	overflow: hidden;
+	clear: both;
+	margin: 5px 0;
+}
+
+div.dev p {
+	font-size: 12px;
+	line-height: 1.5;
+	padding: 1px 0 2px;
+	margin-left: 80px;
+	margin-bottom: 0;
+}
+
+p.devs {
+	padding: 0 0;
+	margin: 0;
+}
+
+/* @end */
+
+/* @group Fx */
+
+.checked {
+	background-color: #7389ae;
+	border-color: #313334;
+}
+
+.input {
+	border-color: #686c70;
+	background-color: #f4f5f5;
+}
+
+.focused {
+	background-color: #eee;
+	color: #686c70;
+}
+
+.blurred {
+	background-color: #f4f5f5;
+	color: #313334;
+}
+
+/* @end */
+
+p.submit {
+	padding: 1em 0 0 0;
+	margin: 0;
+	text-align: center;
+}
+
+div.description {
+	margin-bottom: 2em;
+}
+
+div.description p {
+	margin-bottom: 0.5em;
+}
+
+/* @end */
+
+.new {
+	font-size: 25px;
+	color: #E01600;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.newsmall {
+	font-size: 10px;
+	color: #888;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+a.thebook {
+	width: 90px;
+	height: 113px;
+	float: left;
+	margin-right: 20px;
+	display: block;
+	float: left;
+	background: url(/images/book.png) bottom left;
+}
+
+a.thebook:hover {
+	background-position: top left;
+}
+
+a.thebook span {
+	display: none;
+}

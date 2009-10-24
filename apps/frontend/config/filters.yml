@@ -1,0 +1,12 @@
+twitter:
+  class: twitterFilter
+  
+auth:
+  class: authFilter
+
+rendering: ~
+security:  ~
+
+cache:     ~
+common:    ~
+execution: ~

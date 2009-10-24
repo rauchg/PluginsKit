@@ -1,0 +1,36 @@
+Term:
+  cat_1:
+    title:    Forms
+    category: true
+  
+  cat_2:
+    title:    Interface
+    category: true
+    
+  cat_3:
+    title:    Native
+    category: true    
+    
+  cat_4:
+    title:    Effects
+    category: true
+  
+  cat_5:
+    title:    Realtime
+    category: true
+    
+  cat_6:
+    title:    Request
+    category: true   
+    
+  cat_7:
+    title:    Utilities
+    category: true     
+    
+  cat_8:
+    title:    Widgets
+    category: true    
+    
+  cat_9:
+    title:    Media
+    category: true    

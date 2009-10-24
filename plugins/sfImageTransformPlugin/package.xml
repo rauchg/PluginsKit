@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>sfImageTransformPlugin</name>
+ <channel>pear.symfony-project.com</channel>
+ <summary>symfony plugin for manipulating images using the GD or ImageMagick libraries</summary>
+ <description>A simple to use and flexible image manipulation symfony plugin. The plugin allows you to perform &quot;transforms&quot; on an image. A transform maybe simple like a resizing or mirroring or more complex like overlays and pixelizing.  The transforms can be chained together or applied individually. New transforms can be simple created by extending the sfImageTranform abstract class.</description>
+ <lead>
+  <name>Stuart Lowes</name>
+  <user>stunami</user>
+  <email>stuart.lowes@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Ivan Tanev</name>
+  <user>Crafty_Shadow</user>
+  <email>vankata.t@gmail.com</email>
+  <active>yes</active>
+ </developer>
+ <date>2009-03-19</date>
+ <time>23:30:00</time>
+ <version>
+  <release>1.0.1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.symfony-project.com/license">MIT license</license>
+ <notes>-</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="89cf53c300a38427201e0bd98aab5e90" name="config/app.yml" role="data" />
+   <file md5sum="7653d04f56d3212a314c35490411c656" name="lib/sfImage.class.php" role="data" />
+   <file md5sum="d0dc469da5731617dd237a708d7ecc53" name="lib/adapters/sfImageTransformAdapterAbstract.class.php" role="data" />
+   <file md5sum="f85112daef2c9d39621c32ecbda8948f" name="lib/adapters/sfImageTransformGDAdapter.class.php" role="data" />
+   <file md5sum="33bb61eaca5e7996939055c2c68dd92e" name="lib/adapters/sfImageTransformImageMagickAdapter.class.php" role="data" />
+   <file md5sum="863b6930147b403f352d5c12d2345544" name="lib/exceptions/sfImageTransformException.class.php" role="data" />
+   <file md5sum="01187504eaa8b5c463045be3a58d3dc6" name="lib/transforms/sfImageTransformAbstract.class.php" role="data" />
+   <file md5sum="4b8b675807b832086acfd03cb9bf2bc0" name="lib/transforms/GD/sfImageArcGD.class.php" role="data" />
+   <file md5sum="25285fb2917a74074adc8b6596cd611a" name="lib/transforms/GD/sfImageBrightnessGD.class.php" role="data" />
+   <file md5sum="10a01ef28e544ea92aedba8258988931" name="lib/transforms/GD/sfImageColorizeGD.class.php" role="data" />
+   <file md5sum="d1c0b226637f57e9aa189c09b27a06b5" name="lib/transforms/GD/sfImageContrastGD.class.php" role="data" />
+   <file md5sum="9288e636ab0495e7b720ec2b39ba1a31" name="lib/transforms/GD/sfImageCropGD.class.php" role="data" />
+   <file md5sum="d7d0ce134bced3c2368c9beec785f94e" name="lib/transforms/GD/sfImageEdgeDetectGD.class.php" role="data" />
+   <file md5sum="185d1e44e02515d1de6c8f3f18ffd8d0" name="lib/transforms/GD/sfImageEllipseGD.class.php" role="data" />
+   <file md5sum="e877eb358d01d0f276ca87c86a058dd7" name="lib/transforms/GD/sfImageEmbossGD.class.php" role="data" />
+   <file md5sum="554b6e01688ce517d356ec4cd79e120c" name="lib/transforms/GD/sfImageFillGD.class.php" role="data" />
+   <file md5sum="7406a04eaae6a7d6f8250a3114fa9553" name="lib/transforms/GD/sfImageFlipGD.class.php" role="data" />
+   <file md5sum="8d65c3e1914732a7c443c94afa346ff9" name="lib/transforms/GD/sfImageGammaGD.class.php" role="data" />
+   <file md5sum="7dbee6b9ddc968937c96abec13b0b7ea" name="lib/transforms/GD/sfImageGaussianBlurGD.class.php" role="data" />
+   <file md5sum="e7716a3f9f56b36350ad957f438c25a4" name="lib/transforms/GD/sfImageGreyscaleGD.class.php" role="data" />
+   <file md5sum="6b3f1d0cc61358e4787379b9176c747b" name="lib/transforms/GD/sfImageLineGD.class.php" role="data" />
+   <file md5sum="70dfa40491c7fc833b51809416b9472d" name="lib/transforms/GD/sfImageMirrorGD.class.php" role="data" />
+   <file md5sum="a9f00877f72e607211419d4f0ebf67fb" name="lib/transforms/GD/sfImageNegateGD.class.php" role="data" />
+   <file md5sum="b05064ae71a8a99f13f98a4a3a0e06a4" name="lib/transforms/GD/sfImageNoiseGD.class.php" role="data" />
+   <file md5sum="d33a5b52edf95ce5817692ef1942b81f" name="lib/transforms/GD/sfImageOpacityGD.class.php" role="data" />
+   <file md5sum="fdcfd5c13cad04b82eb57954f2209b85" name="lib/transforms/GD/sfImageOverlayGD.class.php" role="data" />
+   <file md5sum="3cc98803aeb6bb5f48a4a881fdd726a3" name="lib/transforms/GD/sfImagePixelBlurGD.class.php" role="data" />
+   <file md5sum="8ff281816f8468888d42e8589d195a6e" name="lib/transforms/GD/sfImagePixelizeGD.class.php" role="data" />
+   <file md5sum="50854cbd7687772365dc877b163fa8bb" name="lib/transforms/GD/sfImageRectangleGD.class.php" role="data" />
+   <file md5sum="19c3364897f098d8eaa55a86e5aa0718" name="lib/transforms/GD/sfImageReflectionGD.class.php" role="data" />
+   <file md5sum="a26af29e957ebfe662319d00f4c9cf39" name="lib/transforms/GD/sfImageResizeGD.class.php" role="data" />
+   <file md5sum="827f1d63f544f4769eeb37f4dd4b8e08" name="lib/transforms/GD/sfImageRotateGD.class.php" role="data" />
+   <file md5sum="f78d5ba0b051d3d6b28cecbc50b3fa3d" name="lib/transforms/GD/sfImageScaleGD.class.php" role="data" />
+   <file md5sum="96e898b8786cca0be14736f50ef1fd19" name="lib/transforms/GD/sfImageScatterGD.class.php" role="data" />
+   <file md5sum="58a97136e2dc79353ac88c05606d3f9c" name="lib/transforms/GD/sfImageSelectiveBlurGD.class.php" role="data" />
+   <file md5sum="14b1dce29d91adf72b94602b43b93a8e" name="lib/transforms/GD/sfImageSketchyGD.class.php" role="data" />
+   <file md5sum="85cfc6a7780fac035cddff0a557b7334" name="lib/transforms/GD/sfImageSmoothGD.class.php" role="data" />
+   <file md5sum="cde3d48868170712f05eb658f8fd32c4" name="lib/transforms/GD/sfImageTextGD.class.php" role="data" />
+   <file md5sum="a248dd81a6cc010f1478d70e18ed5ef9" name="lib/transforms/GD/sfImageTransparencyGD.class.php" role="data" />
+   <file md5sum="59949bd05d6e4aba39947566db8b12c6" name="lib/transforms/Generic/sfImageBorderGeneric.php" role="data" />
+   <file md5sum="a62150c8d1e5e1ec34ee45fcd1fba765" name="lib/transforms/Generic/sfImageThumbnailGeneric.php" role="data" />
+   <file md5sum="c313ba495e2ec9c26a46721b6cd0fe7e" name="lib/transforms/ImageMagick/sfImageCropImageMagick.class.php" role="data" />
+   <file md5sum="0813bbfec9a6a0e4f390e9b1719ed252" name="lib/transforms/ImageMagick/sfImageFillImageMagick.class.php" role="data" />
+   <file md5sum="5df18fb7b2e442b74337807342582f24" name="lib/transforms/ImageMagick/sfImageFlipImageMagick.class.php" role="data" />
+   <file md5sum="77263d838bc7dde52e83f8b07543bdce" name="lib/transforms/ImageMagick/sfImageMirrorImageMagick.class.php" role="data" />
+   <file md5sum="d98d7069624f0a6e25a34994a144ae35" name="lib/transforms/ImageMagick/sfImageOpacityImageMagick.class.php" role="data" />
+   <file md5sum="00cc1a34948bf7d759b57025d8743144" name="lib/transforms/ImageMagick/sfImageOverlayImageMagick.class.php" role="data" />
+   <file md5sum="e311f17b6dd8f17ba49e47e4a65aa7b3" name="lib/transforms/ImageMagick/sfImagePrettyThumbnailImageMagick.class.php" role="data" />
+   <file md5sum="6c98f11b8a139009e2ec6b075499bbd7" name="lib/transforms/ImageMagick/sfImageRectangleImageMagick.class.php" role="data" />
+   <file md5sum="ab2df4555243eb5c47af2d060cfef326" name="lib/transforms/ImageMagick/sfImageResizeImageMagick.class.php" role="data" />
+   <file md5sum="39a5a1c3c869cc03530724c17f6e52b1" name="lib/transforms/ImageMagick/sfImageRotateImageMagick.class.php" role="data" />
+   <file md5sum="cda92144ff5add29e5a0955d0faa2cdc" name="lib/transforms/ImageMagick/sfImageScaleImageMagick.class.php" role="data" />
+   <file md5sum="f71aec244763339a6dcd0b148aca2e43" name="lib/transforms/ImageMagick/sfImageTextImageMagick.class.php" role="data" />
+   <file md5sum="5ab415e0035ae02be10759f288749f5d" name="lib/transforms/ImageMagick/sfImageTrimImageMagick.class.php" role="data" />
+   <file md5sum="4ec039ad42ee9c0f069dfb958cc3f379" name="LICENSE" role="data" />
+   <file md5sum="6d48e39e6ce0a993b2ee8a840fd8d671" name="README" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.1</min>
+   </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.0.0</min>
+    <max>1.3.0</max>
+    <exclude>1.3.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2009-01-19</date>
+   <notes>
+    * Fixing argument order bug with ImageMagic? crop class
+    * Updating overlay labels for ImageMagic overlay transform
+    * Completing class getter cropping transforms
+    * Updated and improved documentation
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2009-01-08</date>
+   <notes>
+    * Fixed preserving of quality when copying or saving as
+    * Addded support for GD MIME detection using GetImageSize?
+    * Fixed thumbnail transform
+    * Renamed thumbnail transform methods allowed while maintaing backwards compatibility
+    * Renamed overlay position labels and backwards compatibility
+    * Added generic border transform
+    * General code tidying and improved documentation
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.3</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2009-01-08</date>
+   <notes>
+    * Fixing bug when saving images
+    * Fixing transparency problems with GD adapter
+    * GD rotate tranform now requires GD rotate support
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2009-01-08</date>
+   <notes>
+    * Fixing package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2009-01-01</date>
+   <notes>
+    * Updating package info
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2009-01-01</date>
+   <notes>
+    * Adding support for symfony 1.1/1.2
+    * Adding support for MIME detection
+    * Adding opacity transform
+    * Adding thumbnail transform
+    * Fixed copy bug
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.symfony-project.com/license">MIT license</license>
+   <license>MIT</license>
+   <date>2008-10-13</date>
+   <notes>* stunami: initial release</notes>
+  </release>
+ </changelog>
+</package>

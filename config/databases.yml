@@ -1,0 +1,21 @@
+dev:
+  propel:
+    param:
+      classname:  DebugPDO
+
+test:
+  propel:
+    param:
+      classname:  DebugPDO
+
+all:
+  propel:
+    class:        sfPropelDatabase
+    param:
+      classname:  PropelPDO
+      dsn:        mysql:dbname=mooforge;host=localhost
+      username:   root
+      password:   1234
+      encoding:   utf8
+      persistent: true
+      pooling:    true

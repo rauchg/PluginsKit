@@ -1,0 +1,15 @@
+Forge Feedback
+==============
+
+- forge@mootools.net > plugins@mootools.net. I need that email box
+- correct h3,4,5,6 style in plugin page
+- style error 500
+- (djamil) install sphinx for mysql
+- make `complete signup` more clear
+- fix login issues (aaron?)
+- fix email change
+
+Requirements
+============
+
+Enforce `requirements: {}`

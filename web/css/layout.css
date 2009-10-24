@@ -1,0 +1,110 @@
+/* -----------------------------------------------------------------------
+
+   MooTools.net Layout Style.
+
+   Copyright (c) 2006-2008 Valerio Proietti, http://mad4milk.net.
+
+----------------------------------------------------------------------- */
+
+/* @group Layout */
+
+#header {
+	height: 120px;
+	border-bottom: 1px solid #ddd;
+}
+
+#header span {
+	display: none;
+}
+
+#header .container {
+	position: relative;
+}
+
+#header h1, #header h2 {
+	margin: 0;
+	padding: 0;
+}
+
+#header h1 a {
+	display: block;
+	width: 184px;
+	height: 46px;
+	background: url(/images/mootools.png) center left no-repeat;
+}
+
+#header h2 {
+	height: 19px;
+	width: 233px;
+	background: url(/images/subtitle.png) center left no-repeat;
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
+#header #logo {
+	position: absolute;
+	width: 233px;
+	top: 25px;
+	left: 0;
+}
+
+#navigation {
+	position: absolute;
+	right: 0;
+	top: 60px;
+}
+
+#navigation a {
+	padding: 0.5em 1em;
+	border-left: 1px solid #ddd;
+	font-size: 1.1em;
+	text-decoration: none;
+}
+
+#navigation a.first {
+	border: 0;
+}
+
+#header, #footer {
+	background: #f9f9f9;
+}
+
+#wrapper {
+	background: #f4f5f5 url(/images/gradient.png) repeat-x top left;
+	padding-top: 3em;
+	padding-bottom: 3em;
+}
+
+#footer p {
+	margin: 0;
+}
+
+#footer {
+	padding: 2em;
+	text-align: center;
+	border-top: 1px solid #ddd;
+	font-size: 0.75em;
+	color: #888;
+}
+
+p.copy {
+	text-align: center;
+}
+
+a#mucca {
+	display: block;
+	height: 57px;
+	background: url(/images/mucca.png) center center no-repeat;
+}
+
+a#mediatemple {
+	display: block;
+	position: absolute;
+	right: 0;
+	background: url(/images/mediatemple.png);
+	height: 16px;
+	width: 108px;
+	top: 20px;
+}
+
+/* @end */
