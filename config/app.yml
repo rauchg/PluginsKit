@@ -1,9 +1,9 @@
 all:
   
-  title_prefix:         MooTools Plugins |
+  title_prefix:         PluginsKit |
   
   webmaster:
-    email:              forge@mootools.net
+    email:              demo@pluginskit.com
     
   screenshots:     
     path:               screenshots
