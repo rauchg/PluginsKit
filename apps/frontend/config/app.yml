@@ -11,8 +11,8 @@ dev:
     command:            /opt/local/bin/git #make sure it's correct
   
   twitter:
-    consumer_key:       #fill for your local environment
-    consumer_secret:    #fill for your local environment
+    consumer_key:       FrPf98reevKh2BGKzqRoA #fill for your local environment
+    consumer_secret:    LiIKnnribXNt2VHXHXbAnZpeo0gtDVnA2gsSFSrWPsw #fill for your local environment
 
 # default values
 all:

@@ -18,6 +18,10 @@ class PluginAddStep6Form extends PluginAddStepForm
 		$this->setValidators(array(
 			'files' => new sfValidatorPass
 		));
+		
+		$c = new sfValidatorCallback(array('callback' => array($this, 'doValidate')));
+		$c->addOption('execute-if-passed', true);
+		$this->validatorSchema->setPostValidator($c);
 	}
 	
 	public function doValidate($validator, $values){
@@ -34,7 +38,7 @@ class PluginAddStep6Form extends PluginAddStepForm
 			$requiredFields = array('provides');			
 			foreach ($requiredFields as $required){
 				if (!isset($data[$required])){
-					throw new sfValidatorError($validator, sprintf('`%s` field missing in %s', $required, basename($file)))
+					throw new sfValidatorError($validator, sprintf('`%s` field missing in %s', $required, basename($file)));
 				}
 			}
 			
@@ -42,7 +46,7 @@ class PluginAddStep6Form extends PluginAddStepForm
 			if (isset($data['requires'])){
 				foreach ($data['requires'] as $requirement){
 					if (!preg_match('#([^/]+)/([^ ]+) ([^\n]+)#i', $requirement)){
-						
+						die('test');
 					}
 				}
 				

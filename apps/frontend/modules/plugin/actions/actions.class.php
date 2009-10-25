@@ -212,16 +212,20 @@ class pluginActions extends ForgeActions
 			$form = new PluginAddStep6Form();
 			$form->bind(array('files' => $files));
 			
-			$params = $this->getUser()->getAttribute('github.params', array(), 'plugin.add.' . $addid);
-			$form = new PluginForm();			
-			$form->bind($params);
-			
-			$id = $this->getUser()->getAttribute('id', false, 'plugin.add.' . $addid);
-			
-			
-			$this->getUser()->getAttributeHolder()->remove('plugin.add.' . $addid);
+			if ($form->isValid()){
+				$params = $this->getUser()->getAttribute('github.params', array(), 'plugin.add.' . $addid);
+				$form = new PluginForm();			
+				$form->bind($params);
 
-			return $this->renderJson(array('success' => true, 'status' => 'Done!' . (!$id ? ' <a href="#">See it here</a>' : '')));
+				$id = $this->getUser()->getAttribute('id', false, 'plugin.add.' . $addid);
+
+				$this->getUser()->getAttributeHolder()->remove('plugin.add.' . $addid);
+
+				return $this->renderJson(array('success' => true, 'status' => 'Done!' . (!$id ? ' <a href="#">See it here</a>' : '')));
+			} else {
+				return $this->renderJson($form->toJson());
+			}
+			
 		}
 	}
 
