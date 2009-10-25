@@ -1,3 +1,7 @@
+.block {
+	margin-bottom: 1.3em;
+}
+
 h2.green { color: #78ba91; }
 .breadcrumb { margin-bottom: 5px; font-size: 11px; }
 
@@ -86,14 +90,6 @@ ol.howto-steps li .code { margin-top: 10px; }
 
 .inputs_password .again { margin-top: 10px; }
 #signup_twitter_id, #settings_twitter_id { width: 100px; }
-
-.input_submit input, .button { background: #c0c0c0; border: 1px solid #999; color: #333 !important; text-shadow: 0 1px 0 #fff; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; text-transform: uppercase; font-weight: bold; padding: 5px 8px; cursor: pointer; }
-.input_submit input:hover, .button:hover { background: #ccc; }
-.input_submit input:active, .button:active { background: #fff; }
-
-.input_submit input[type], .button[type] { line-height: 15px; padding: 3px 8px;  }
-
-.input_submit input.input_submit_disabled { cursor: default; background: #E3E3E3; color: #B6B6B6 !important; text-shadow: 0 1px 0 #fff; border-color: #D6D6D6; }
 
 .progress-bar { background: url('/images/progress-sprite.png') no-repeat top; width: 170px; height: 17px; padding: 1px; }
 .progress-bar_error { background-position: left -22px; }

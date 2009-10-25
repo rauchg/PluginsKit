@@ -14,11 +14,10 @@ class feedActions extends sfActions
 	private function getFeed($format = 'atom1'){
 		$feed = sfFeedPeer::newInstance($format);
 
-	  $feed->setTitle('MooTools Plugins - Latest');
+	  $feed->setTitle('PluginsKit - Latest');
 	  $feed->setLink('@homepage');
 
 	  $feedImage = new sfFeedImage();
-	  $feedImage->setFavicon('http://www.mootools.net/assets/icons/icon.png');
 		$feedImage->setLink('@homepage');
 	  $feed->setImage($feedImage);
 	
@@ -33,8 +32,7 @@ class feedActions extends sfActions
 	  $c->setLimit(20);
 	  $plugins = PluginPeer::doSelect($c);
 		
-		// FIXME: if $plugins is empty, sfFeed asXml fails miserably
-	  foreach ($plugins as $plugin)
+	  foreach ((array) $plugins as $plugin)
 	  {
 	    $item = new sfFeedItem();
 	    $item->setTitle($plugin->getTitle());
