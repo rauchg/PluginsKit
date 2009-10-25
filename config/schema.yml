@@ -70,9 +70,9 @@ propel:
     plugin_id:        { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
     # Used if the dependency is some version of a plugin existing in the forge
     plugin_tag_id:    { type: integer, foreignTable: plugin_tag, foreignReference: id, onDelete: cascade }          
-    url:              varchar(255)
-    title:            varchar(255)
     created_at:
+    _uniques:
+      unique_git:     [plugin_tag_id, plugin_id]
     
   # Git tags for the plugin. Fetched from GitHub
   plugin_tag:

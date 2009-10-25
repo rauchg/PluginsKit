@@ -5,6 +5,9 @@ authors:
  - Guillermo Rauch
 requires:
  - core/1.2.1: *
+ - fancyzoom
+provides:
+ - pluginskit
 ...
 */
 

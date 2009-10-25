@@ -10,6 +10,9 @@
 class PluginAddStep6Form extends PluginAddStepForm
 {
 	
+	protected $dependencies = array(),
+						$localDependencies = array();
+	
 	public function configure(){
 		$this->setWidgets(array(
 			'files' => new sfWidgetFormInput
@@ -35,7 +38,7 @@ class PluginAddStep6Form extends PluginAddStepForm
 			$data = $parser->getData();
 
 			// check for *presence* of required fields
-			$requiredFields = array('provides');			
+			$requiredFields = array('provides', 'authors');			
 			foreach ($requiredFields as $required){
 				if (!isset($data[$required])){
 					throw new sfValidatorError($validator, sprintf('`%s` field missing in %s', $required, basename($file)));
@@ -45,13 +48,28 @@ class PluginAddStep6Form extends PluginAddStepForm
 			// check for well formed dependencies
 			if (isset($data['requires'])){
 				foreach ($data['requires'] as $requirement){
-					if (!preg_match('#([^/]+)/([^ ]+) ([^\n]+)#i', $requirement)){
-						die('test');
-					}
-				}
-				
+					
+					if (is_array($requirement)){
+						foreach ($requirement as $k => $v){
+							if (!isset($this->dependencies[$k])) $this->dependencies[$k] = array();
+							$this->dependencies[$k] = array_merge($this->dependencies[$k], is_array($v) ? $v : array());
+						}
+					} else {
+						$this->localDependencies[] = $requirement;
+					}					
+					
+				}				
 			}
+			
 		}
+	}
+	
+	public function getDependencies(){
+		return $this->dependencies;
+	}
+	
+	public function getLocalDependencies(){
+		return $this->localDependencies;
 	}
 	
 } // END class PluginAddStep6Form extends PluginAddStepForm

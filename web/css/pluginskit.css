@@ -22,7 +22,7 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 #plugin-links { position: relative; }
 #plugin-links .loader { top: 8px; }
 
-.project_thumb { display: block; width: 187px; height: 80px; border: 1px solid #999; }
+.project_thumb { display: block; width: 187px; height: 80px; border: 1px solid #999; background-color: #dfddda; }
 .project_thumb img { padding: 1px; background: #fff; margin: 0; }
 
 .projects { overflow: hidden; zoom: 1; }
