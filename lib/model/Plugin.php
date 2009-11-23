@@ -102,8 +102,8 @@ class Plugin extends BasePlugin
 			
 			// if it was marked as stable and it's not the currently stable one, unmark it
 			if ($existent && $existent->isCurrent() && $stable && $existent->getName() !== $stable){
-				$current->setCurrent(false);
-				$current->save();
+				$existent->setCurrent(false);
+				$existent->save();
 			}
 			if (!$existent){
 				$t = new PluginTag();
