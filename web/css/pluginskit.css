@@ -107,10 +107,10 @@ ol.howto-steps li .code { margin-top: 10px; }
 .inputs_password .again { margin-top: 10px; }
 #signup_twitter_id, #settings_twitter_id { width: 100px; }
 
-.progress-bar { background: url('/images/progress-sprite.png') no-repeat top; width: 170px; height: 17px; padding: 1px; }
+.progress-bar { background: url('../images/progress-sprite.png') no-repeat top; width: 170px; height: 17px; padding: 1px; }
 .progress-bar_error { background-position: left -22px; }
-.progress-bar-bit { background: url('/images/progress-bar.gif') repeat-x; padding: 5px 0; height: 7px; width: 0%; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
-.progress-bar-error .progress-bar-bit { background: url('/images/progress-bar-fixed.gif'); }
+.progress-bar-bit { background: url('../images/progress-bar.gif') repeat-x; padding: 5px 0; height: 7px; width: 0%; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+.progress-bar-error .progress-bar-bit { background: url('../images/progress-bar-fixed.gif'); }
 
 #login-form { }
 #login-form li { overflow: hidden; }
@@ -141,7 +141,7 @@ ol.howto-steps li .code { margin-top: 10px; }
 #update-form { display: none; text-align: center; }
 #update-form .progress-bar { margin: 5px auto 0; }
 
-.github-request-report-complete .progress-bar .progress-bar-bit { background: url('/images/progress-bar-fixed.gif'); }
+.github-request-report-complete .progress-bar .progress-bar-bit { background: url('../images/progress-bar-fixed.gif'); }
 
 .loader { color: #666; font-weight: bold; position: absolute; visibility: hidden; }
 
