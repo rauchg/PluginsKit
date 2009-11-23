@@ -109,7 +109,7 @@ class Plugin extends BasePlugin
 				$t = new PluginTag();
 				$t->setPluginId($this->getId());
 				$t->setName($tag);
-				if (($stable === null && ($i + 1 == sizeof($tags))) || ($tag === $stable)){
+				if (($stable === null && ($i + 1 == sizeof($tags))) || ($tag == $stable)){
 					$t->setCurrent(true);
 				}
 				$t->save();

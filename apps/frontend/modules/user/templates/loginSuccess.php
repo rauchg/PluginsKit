@@ -10,7 +10,7 @@
   <?php endif; ?>
 
 	<form action="<?php echo url_for('user/login') ?>" method="post" class="vertical-form" accept-charset="utf-8">	
-		<div class="input_text block">
+		<div class="input_text block required">
 			<?php echo $form['email']->renderLabel('Email') ?>
 			<?php echo $form['email']->render() ?>
 			<?php echo $form['email']->renderError() ?>
@@ -18,7 +18,7 @@
 		
 		<hr class="clear" />
 		
-		<div class="input_text block">
+		<div class="input_text block required">
 			<?php echo $form['password']->renderLabel('Password') ?>
 			<?php echo $form['password']->render() ?>
 			<?php echo $form['password']->renderError() ?>

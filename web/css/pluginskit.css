@@ -69,12 +69,6 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 .tags-list li a:hover { background: #CBD0D8; }
 
 .versions-list { 
-	-moz-column-count: 3;
-	-moz-column-gap: 20px;
-	-webkit-column-count: 3;
-	-webkit-column-gap: 20px;
-	column-count: 3;
-	column-gap: 20px;
 	max-height: 180px;
 }
 .versions-list li, .versions-list li a { display: inline-block; }

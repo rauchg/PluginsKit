@@ -14,6 +14,10 @@ class ForgeYamlParser extends sfYamlParser
 		}
 	}
 	
+	public function getData(){
+		return $this->data;
+	}
+	
 	public function get($key, $default = null){
 		return isset($this->data[$key]) ? $this->data[$key] : $default;
 	}
