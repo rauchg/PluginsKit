@@ -13,4 +13,8 @@ class PluginTag extends BasePluginTag
 		if ($save) $this->save();
 	}
 	
+	public function isCurrent(){
+		return $this->getCurrent();
+	}
+	
 }

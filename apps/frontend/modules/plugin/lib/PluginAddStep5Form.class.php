@@ -34,6 +34,7 @@ class PluginAddStep5Form extends PluginAddStepForm
 			'arbitrarySections' => new sfValidatorPass,
 			'stabletag' => new sfValidatorPass,
 			'screenshots' => new sfValidatorPass,
+			'gitTags' => new sfValidatorPass,
 			'category' => new sfValidatorPropelChoice(array('model' => 'Term', 'criteria' => $catsCriteria, 'column' => 'title', 'required' => true), array('invalid' => '"%value%" is not a valid category. Please check your package.yml.')),
 			'tags' => new sfValidatorPass,
 			'title' => new sfValidatorString(array('max_length' => 255, 'required' => true), array('required' => 'A plugin name is required. Check your package.yml for the \'name\' key')),
@@ -49,7 +50,21 @@ class PluginAddStep5Form extends PluginAddStepForm
 		$this->validatorSchema->setPostValidator($c);
 	}
 	
-	public function doValidate($validator, $values){
+	public function doValidate($validator, $values){		
+		$title = strtolower(trim($values['title']));		
+		if ($title == 'core' || $title == 'more'){
+			throw new sfValidatorError($validator, sprintf('The plugin names <b>core</b> and <b>more</b> are reserved.'));
+		}
+		
+		$username = sfContext::getInstance()->getUser()->getUsername();
+		if (!sfConfig::get('app_plugin_dev_loose_mode') && ($values['author'] !== $username)){
+			throw new sfValidatorError($validator, sprintf('Your username "%s" and the one specified in package.yml don\'t match.', $username));
+		}
+		
+		if (isset($values['stabletag']) && !in_array($values['stabletag'], $values['gitTags'])){
+			throw new sfValidatorError($validator, sprintf('The current tag ("%s") in package.yml is not in the repository.', $values['stabletag']));
+		}
+		
 		return $values;
 	}
 	

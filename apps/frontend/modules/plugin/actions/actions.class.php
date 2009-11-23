@@ -21,28 +21,9 @@ class pluginActions extends ForgeActions
   	$this->forward('@browse');
   }
 
- // /**
- //  * Executes add action
- //  *
- //  * @param sfRequest $request A request object
- //  */
- //  public function executeAdd(sfWebRequest $request)
- //  {
- // 		$this->form = new PluginAddForm();
- // 		if ($request->isMethod('post'))
- // 		{
- // 			$result = $this->form->bindAndSave($request->getParameter('github'));
- // 			if ($request->isXmlHttpRequest()){
- // 				echo $this->form->toJson(sprintf('Plugin `%s` added successfully. <a href="%s">Go there</a>', $this->form->getObject()->getTitle(), $this->getController()->genUrl('@plugin?slug=' . $this->form->getObject()->getSlug())), 'url');
- // 				return sfView::NONE;
- // 			} else {
- // 				if ($result){
- // 					$this->flash('Plugin added successfully');
- // 					$this->redirect('@plugin?slug=' . $this->form->getObject()->getSlug());
- // 				}
- // 			}
- // 		}
- //  }
+	private function checkStep($num, $addid){
+		$this->forward404Unless($num === $this->getUser()->getAttribute('step', null, 'plugin.add.' . $addid));
+	}
 
 	/**
 	 * Add first step
@@ -56,7 +37,14 @@ class pluginActions extends ForgeActions
 			$addid = uniqid(time() . rand(555555, 666666));
 			
 			if ($request->getParameter('id')){
-				$this->getUser()->setAttribute('id', $request->getParameter('id'), 'plugin.add.' . $addid);
+				$plugin = PluginPeer::retrieveBySlug($request->getParameter('id'));
+				$this->forward404Unless($plugin && $this->getUser()->ownsPlugin($plugin));
+				
+				$this->getUser()->setAttribute('step', 1, 'plugin.add.' . $addid);
+				$this->getUser()->setAttribute('id', $plugin->getId(), 'plugin.add.' . $addid);				
+				$this->getUser()->setAttribute('github.user', $plugin->getGithubuser(), 'plugin.add.' . $addid);
+				$this->getUser()->setAttribute('github.repository', $plugin->getGithubrepo(), 'plugin.add.' . $addid);
+				
 				return $this->renderJson(array('success' => true, 'addid' => $addid, 'status' => 'Verifying GIT Tags'));				
 			}
 						
@@ -82,6 +70,8 @@ class pluginActions extends ForgeActions
 	{	
 		if ($request->isMethod('post')){
 			$addid = $request->getParameter('addid');
+						
+			$this->checkStep(1, $addid);
 						
 			$form = new PluginAddStep2Form();
 			$form->bind(array(
@@ -110,6 +100,8 @@ class pluginActions extends ForgeActions
 		if ($request->isMethod('post')){
 			$addid = $request->getParameter('addid');
 
+			$this->checkStep(2, $addid);
+
 			$form = new PluginAddStep3Form();
 			$form->bind(array(
 				'user' => $this->getUser()->getAttribute('github.user', null, 'plugin.add.' . $addid),
@@ -135,6 +127,8 @@ class pluginActions extends ForgeActions
 	{
 		if ($request->isMethod('post')){
 			$addid = $request->getParameter('addid');
+			
+			$this->checkStep(3, $addid);
 			
 			$form = new PluginAddStep4Form();
 			$form->bind(array(
@@ -163,7 +157,10 @@ class pluginActions extends ForgeActions
 		if ($request->isMethod('post')){
 			$addid = $request->getParameter('addid');
 			
+			$this->checkStep(4, $addid);
+			
 			$gitPath = $this->getUser()->getAttribute('github.path', '', 'plugin.add.' . $addid);
+			$gitTags = $this->getUser()->getAttribute('github.tags', array(), 'plugin.add.' . $addid);
 			$readme = new ForgeMDParser(file_get_contents($gitPath . '/README.md'));
 			$manifest = new ForgeYamlParser(file_get_contents($gitPath . '/package.yml'));
 						
@@ -174,6 +171,7 @@ class pluginActions extends ForgeActions
 				'screenshots' => $readme->getScreenshots(),
 				'category' => $manifest->get('category'),
 				'tags' => $manifest->get('tags'),
+				'gitTags' => $gitTags,
 				'title' => $manifest->get('name'),
 				'screenshot' => $readme->getScreenshot(),			
 				'docsurl' => $manifest->get('docs'),			
@@ -187,7 +185,7 @@ class pluginActions extends ForgeActions
 			
 			if ($form->isValid()){
 				$this->getUser()->setAttribute('step', 5, 'plugin.add.' . $addid);			
-				$this->getUser()->setAttribute('github.params', $params, 'plugin.add.' . $addid);			
+				$this->getUser()->setAttribute('github.params', $form->getValues(), 'plugin.add.' . $addid);			
 				
 				return $this->renderJson(array('success' => true, 'status' => 'Verifying JS files'));
 			}
@@ -206,22 +204,49 @@ class pluginActions extends ForgeActions
 		if ($request->isMethod('post')){
 			$addid = $request->getParameter('addid');
 			
+			$this->checkStep(5, $addid);
+			
 			$gitPath = $this->getUser()->getAttribute('github.path', '', 'plugin.add.' . $addid);
 			$files = sfFinder::type('file')->name('*.js')->in($gitPath . '/Source');
 			
 			$form = new PluginAddStep6Form();
 			$form->bind(array('files' => $files));
 			
-			if ($form->isValid()){
+			if ($form->isValid()){				
 				$params = $this->getUser()->getAttribute('github.params', array(), 'plugin.add.' . $addid);
-				$form = new PluginForm();			
-				$form->bind($params);
-
-				$id = $this->getUser()->getAttribute('id', false, 'plugin.add.' . $addid);
-
+				
+				unset($params['author']);
+				
+				$params['dependencies'] = $form->getDependencies();				
+				$params['githubuser'] = $this->getUser()->getAttribute('github.user', '', 'plugin.add.' . $addid);
+				$params['githubrepo'] = $this->getUser()->getAttribute('github.repository', '', 'plugin.add.' . $addid);
+				
+				$id = $this->getUser()->getAttribute('id', false, 'plugin.add.' . $addid);			
+				
+				if ($id){
+					$plugin = PluginPeer::retrieveByPk($id);
+					
+					// for propel unique validator isUpdate check
+					$params['id'] = $id;
+					
+					$form = new PluginAddForm($plugin);
+					$result = $form->bindAndSave($params);
+				} else {			
+					$form = new PluginAddForm();			
+					$form->bindAndSave($params);	
+				}
+				
+				if (!$form->isValid()){
+					print_r($form->toJson());
+					exit;
+				}
+				
 				$this->getUser()->getAttributeHolder()->remove('plugin.add.' . $addid);
 
-				return $this->renderJson(array('success' => true, 'status' => 'Done!' . (!$id ? ' <a href="#">See it here</a>' : '')));
+				return $this->renderJson(array(
+					'success' => true, 
+					'status' => 'Done!' . (!$id ? sprintf(' <a href="%s">See it here</a>', $this->getContext()->getRouting()->generate('plugin', array('slug' => $form->getObject()->getSlug()))) : '')
+				));
 			} else {
 				return $this->renderJson($form->toJson());
 			}
@@ -244,41 +269,5 @@ class pluginActions extends ForgeActions
 		$this->sections = $this->plugin->getPluginSections();
 		$this->dependencies = $this->plugin->getPluginDependencys();
 	}
-
-	public function executeUpdate(sfWebRequest $request){
-		$this->plugin = PluginPeer::retrieveBySlug($request->getParameter('slug'));
-		$this->forward404Unless($this->plugin);
-		$this->forward404Unless($this->plugin->getAuthorId() === $this->getUser()->getId());
-		
-		$this->form = new PluginAddForm($this->plugin);
-		$result = $this->form->bindAndSave(array('id' => $this->plugin->getId(), 'url' => $this->plugin->getGitUrl()));
-		
-		if ($request->isXmlHttpRequest()){
-			echo $this->form->toJson('Plugin updated successfully', 'url');
-			exit;
-		} else {
-			if ($result){
-				$this->flash('Plugin updated successfully');
-				$this->redirect('@plugin?slug=' . $this->form->getObject()->getSlug());
-			}
-		}
-	}
-	
-	public function executeDiscuss(sfWebRequest $request){
-		$this->forward404();
-		
-		$this->plugin = PluginPeer::retrieveBySlug($request->getParameter('slug'));
-		$this->forward404Unless($this->plugin);
-		
-		$this->getResponse()->setTitle(sfConfig::get('app_title_prefix') . ' ' . $this->plugin->getTitle() . ' | Discussion');
-	}
-	
-	// public function executeSyntaxChecker(sfWebRequest $request){
-	// 	$this->form = new SyntaxCheckerForm();
-	// 	
-	// 	if ($request->isMethod('post')){
-	// 		
-	// 	}
-	// }
 
 }

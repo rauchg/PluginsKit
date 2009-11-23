@@ -5,8 +5,19 @@
 h2.green { color: #78ba91; }
 .breadcrumb { margin-bottom: 5px; font-size: 11px; }
 
+label { font-weight: normal; }
+.required label { font-weight: bold; }
+
 dl.table dd { display: block; float: left; clear: right; margin: 0 0 10px 0; width: 65%; }
 dl.table dt { float: left; display: block; width: 35%; margin: 0; }
+
+.input_submit input, .button { background: #c0c0c0  -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#C1C1C1)); border: 1px solid #999; color: #333 !important; text-shadow: 0 1px 0 #fff; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; text-transform: uppercase; font-weight: bold; padding: 5px 8px; cursor: pointer; }
+.input_submit input:hover, .button:hover { background: #ccc; }
+.input_submit input:active, .button:active { background: #fff; }
+
+.input_submit input[type], .button[type] { line-height: 15px; padding: 3px 8px;  }
+
+.input_submit input.input_submit_disabled { cursor: default; background: #E3E3E3; color: #B6B6B6 !important; text-shadow: 0 1px 0 #fff; border-color: #D6D6D6; }
 
 #project h2 { margin-bottom: 0.5em; }
 #project h2 .version { font-size: 80%; float: right; font-weight: normal; }
@@ -18,6 +29,8 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 .link-boxes { text-align: center; }
 .link-boxes a { font-family: Arial Rounded, Helvetica, Tahoma; background: #c0c0c0; border: 1px solid #999; color: #333; text-shadow: 0 1px 0 #fff; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; text-transform: uppercase; font-weight: bold; padding: 5px 8px; cursor: pointer; text-decoration: none; display: inline-block; width: 110px; text-align: center; font-size: 14px; -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 8px; -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 8px; margin: 0 10px; height: 20px; }
 .link-boxes a:hover { color: #666; }
+
+.link-boxes a.button_disabled { color: #999; background: #ccc; cursor: default; }
 
 #plugin-links { position: relative; }
 #plugin-links .loader { top: 8px; }
@@ -33,6 +46,8 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 .projects li .downloads { font-size: 11px; top: 3px; right: 0; position: absolute; }
 
 .projects li a:hover .name { color: #e79d35; }
+
+#ZoomCapDiv td, #ZoomCapDiv th { padding: 0; border: 0; }
 
 #home-recent-active { position: relative; }
 #home-recent-active .meta { position: absolute; font-size: 11px; top: 5px; right: 10px; }
@@ -59,6 +74,7 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 	-webkit-column-count: 3;
 	-webkit-column-gap: 20px;
 	column-count: 3;
+	column-gap: 20px;
 	max-height: 180px;
 }
 .versions-list li, .versions-list li a { display: inline-block; }
@@ -114,10 +130,16 @@ ol.howto-steps li .code { margin-top: 10px; }
 #add-plugin-form .input_submit input { float: right; }
 
 #add-plugin-form .github-request-report { float: right; padding-right: 40px; padding-top: 3px; }
-#add-plugin-form .github-request-report .progress-bar, .github-request-report .errors, .github-request-report .status { float: left;  margin-left: 15px; }
-#add-plugin-form .github-request-report .status { font-weight: bold; font-size: 11px; padding-top: 2px; }
-#add-plugin-form .github-request-report .errors { margin: 0; padding: 0; }
-#add-plugin-form .github-request-report .errors li { font-size: 11px; font-weight: bold; color: #4E0005; list-style-type: none; margin: 0; padding: 2px 0 0 0; }
+#add-plugin-form .github-request-report .progress-bar, #add-plugin-form .github-request-report .status, #add-plugin-form .github-request-report .errors { float: left;  margin-left: 15px; }
+
+.github-request-report .status { font-weight: bold; font-size: 11px; padding-top: 2px; }
+.github-request-report .errors { margin: 0; padding: 0; }
+.github-request-report .errors li { font-size: 11px; font-weight: bold; color: #4E0005; list-style-type: none; margin: 0; padding: 2px 0 0 0; }
+
+#add-plugin-form .github-request-report .errors li { width: 400px; text-align: right; }
+
+#update-form { display: none; text-align: center; }
+#update-form .progress-bar { margin: 5px auto 0; }
 
 .github-request-report-complete .progress-bar .progress-bar-bit { background: url('/images/progress-bar-fixed.gif'); }
 
@@ -159,190 +181,3 @@ a.twitter_button:active { background-position: bottom; }
 
 form .note { font-size: 11px; margin-top: -10px; margin-bottom: 10px; margin-left: 150px; color: #666; }
 form .note-warning { color: #cc0000; }
-
-.remooz-element
-{
-	cursor:					-moz-zoom-in;
-}
-
-/**
- * Box layout
- */
-
-.remooz-box
-{
-	position:				absolute;
-	top:					0;
-	left:					0;
-	background:				#fff no-repeat center;
-	z-index:				100;
-	text-align: center;
-}
-.remooz-loading
-{
-	background-image:		url(../images/remooz/spinner.gif);
-}
-.remooz-body
-{
-	width:					100%;
-	height:					100%;
-}
-.remooz-box-focus.remooz-type-image .remooz-body
-{
-	cursor:					-moz-zoom-out;
-}
-.remooz-box-dragging .remooz-body
-{
-	cursor:					move;
-}
-
-/**
- * Close button
- */
-
-.remooz-btn-close
-{
-	position:				absolute;
-	left:					-15px;
-	top:					-15px;
-	width:					30px;
-	height:					30px;
-	text-decoration:		none;
-	border:					0;
-	background:				url(../images/remooz/closebox.png) no-repeat center;
-	visibility:				hidden;
-	cursor:					pointer;
-}
-.remooz-engine-trident4 .remooz-btn-close
-{
-	background-image:		url(../images/remooz/closebox.gif);
-}
-
-/**
- * Caption title
- */
-
-.remooz-title
-{
-	position:				relative;
-	left:					0;
-	top:					15px;
-	text-align:				left;
-	display: inline-block;
-}
-.remooz-title-bg
-{
-	position:				absolute;
-	left:					0;
-	top:					0;
-	width:					100%;
-	height:					100%;
-	background-color:		#333;
-	z-index:				99;
-	-moz-border-radius:		12px;
-	-webkit-border-radius:	12px;
-	/* shadow opacity differs from box shadow because its default set to opacity 0.8 */
-	-webkit-box-shadow:		0 0 10px rgba(0, 0, 0, 0.9);
-}
-.remooz-title-content
-{
-	position:				relative;
-	padding:				2px 15px;
-	z-index:				101;
-	font-size: 14px; font-family: Helvetica; font-weight: bold; color: rgb(255, 255, 255); text-shadow: rgb(0, 0, 0) 0px 2px 4px; white-space: nowrap; 
-}
-
-.remooz-engine-trident4 .remooz-title-bg
-{
-	display:				none;
-}
-.remooz-engine-trident4 .remooz-title-content
-{
-	background-color:		#333;
-}
-
-.remooz-title-content h6
-{
-	font-weight:			bold;
-	color:					#eee;
-}
-.remooz-title-content p
-{
-	color:					#eee;
-}
-
-/**
- * Type specific
- */
-
-.remooz-type-image img
-{
-	display:				block;
-	border:					0;
-	width:					100%;
-	height:					100%;
-}
-
-/**
- * Shadow
- */
-
-.remooz-bg
-{
-	position:				absolute;
-	width:					33px;
-	height:					40px;
-}
-
-.remooz-bg-n
-{
-	left:					0;
-	top:					-40px;
-	width:					100%;
-	background:				url(../images/remooz/remo_bg_n.png) repeat-x;
-}
-.remooz-bg-ne
-{
-	right:					-33px;
-	top:					-40px;
-	background:				url(../images/remooz/remo_bg_ne.png) no-repeat;
-}
-.remooz-bg-e
-{
-	right:					-33px;
-	top:					0;
-	height:					100%;
-	background:				url(../images/remooz/remo_bg_e.png) repeat-y;
-}
-.remooz-bg-se
-{
-	right:					-33px;
-	bottom:					-40px;
-	background:				url(../images/remooz/remo_bg_se.png) no-repeat;
-}
-.remooz-bg-s
-{
-	left:					0;
-	bottom:					-40px;
-	width:					100%;
-	background:				url(../images/remooz/remo_bg_s.png) repeat-x;
-}
-.remooz-bg-sw
-{
-	left:					-33px;
-	bottom:					-40px;
-	background:				url(../images/remooz/remo_bg_sw.png) no-repeat;
-}
-.remooz-bg-w
-{
-	left:					-33px;
-	top:					0;
-	height:					100%;
-	background:				url(../images/remooz/remo_bg_w.png) repeat-y;
-}
-.remooz-bg-nw
-{
-	left:					-33px;
-	top:					-40px;
-	background:				url(../images/remooz/remo_bg_nw.png) no-repeat;
-}

@@ -78,7 +78,7 @@ EOF;
     }
 
     // finder to find directories (1 level) in a directory
-    $dirFinder = sfFinder::type('dir')->discard('.sf')->maxdepth(0)->relative();
+    $dirFinder = sfFinder::type('dir')->discard('.sf')->discard('.gitignore')->maxdepth(0)->relative();
 
     // iterate through applications
     $apps = is_null($options['app']) ? $dirFinder->in(sfConfig::get('sf_apps_dir')) : array($options['app']);

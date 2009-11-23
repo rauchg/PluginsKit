@@ -11,7 +11,9 @@ class TwitterSignupForm extends AuthorForm
 		$this->setDefaults(array(
 			'username' => $user->getAttribute('screen_name', '', 'twitter'),
 			'fullname' => $user->getAttribute('name', '', 'twitter'),
-			'location' => $user->getAttribute('location', '', 'twitter')
+			'location' => $user->getAttribute('location', '', 'twitter'),
+			'homepageurl' => $user->getAttribute('url', '', 'twitter'),
+			'about' => $user->getAttribute('bio', '', 'twitter')
 		));
 
     $this->widgetSchema->setNameFormat('twitterDetails[%s]');

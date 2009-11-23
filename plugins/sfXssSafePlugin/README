@@ -1,0 +1,212 @@
+# sfXssSafePlugin - Output Rich Text With Cross Site Scripting Protection #
+
+## Overview ##
+
+Between the `ESC_RAW` and `ESC_HTMLENTITIES`, symfony lacks one escaping level allowing to strip dangerous HTML code but leave the tags that just structure a content or apply a format to it.
+
+The `sfXssSafePlugin` allows to clean a string to prevent XSS attacks. It provides a new escaping strategy, `ESC_XSSSAFE`, to escape tainted HTML strings entered by users. This escaping strategy removes all "dangerous" tags and attributes but keeps the safe ones. The plugin embarks the  An [HTML Putifier](http://htmlpurifier.org/) library and is fully unit-tested.
+
+## Installation ##
+
+### With PEAR ###
+
+    > php symfony plugin-install http://plugins.symfony-project.com/sfXssSafePlugin
+    
+or
+    
+    > php symfony plugin:install sfXssSafePlugin --release=0.9.5
+
+### Witout PEAR ###
+
+Alternatively, if you don't have PEAR installed, you can download the latest package attached to this plugin's wiki page and extract it under your project's `plugins/` directory
+
+## Usage ##
+
+First of all, your application escaping strategy must be set to `both` or `on` to use this plugin. Check your `settings.yml` for the `escaping_strategy` parameter.
+
+Include the helper in the templates where you want to use the new escaping strategy:
+
+    <?php use_helper('XssSafe') ?>
+
+
+As explained in the [Symfony Book](http://www.symfony-project.org/book/1_0/07-Inside-the-View-Layer#Escaping%20Arrays%20and%20Objects), the methods of escaped objects accept an additionnal parameter for the escaping strategy. In addition to the core `ESC_HTMLENTITIES` and `ESC_RAW`, you can now use the `ESC_XSSSAFE` strategy.
+
+    
+    // In the action 
+    $this->post = 'this is not <b>nice</b> <script>alert("XSS!");</script>';
+    
+    // In the template
+    <?php echo $sf_data->get('post', ESC_XSSSAFE) ?>
+     => 'this is not <b>nice</b>'
+    
+    // Without escaping
+    <?php echo $sf_data->get('post', ESC_RAW) ?>
+     => an alert is displayed : XSS!
+
+
+## Configuration ##
+
+You can change the HTML Purifier configuration in your application's `app.yml` file, under the `sfXssSafePlugin` section. Refer to the plugin's `app.sample.yml` and to the [http://htmlpurifier.org/live/configdoc/plain.html HTML Purifier documentation] for further information.
+
+Here is the default configuration used by the plugin if you don't add anything to your `app.yml`:
+
+    all:
+      sfXssSafePlugin:
+        definition:
+        
+          HTML:
+            TidyLevel:              medium   # Values : "none", "light", "medium", "heavy"
+            Doctype:                null     # Accepts valid Doctypes, like 'XHTML 1.0 Transitional'
+            Trusted:                false
+    
+          Core:
+            Encoding:               UTF-8    # This directive only accepts ISO-8859-1 if iconv is not enabled
+            RemoveInvalidImg:       true
+            EscapeInvalidChildren:  false
+            EscapeInvalidTags:      false
+    
+          CSS:
+            AllowImportant:         false
+    
+          Filter:
+            YouTube:                false    # Allow YouTube video embeded
+    
+          AutoFormat:
+            AutoParagraph:          false
+    
+          URI:
+            Disable:                false
+            DisableExternal:        false
+    
+          Output:
+            TidyFormat:             false
+
+
+## More configuration ##
+
+Although HTML Purifier contains a large set of elements and attributes, you can customize others elements or attributes.
+
+The plugin contains a sample which show how to allow to display flash movies :
+
+### Configuration sample ###
+
+First add the following configuration in `app.yml` file :
+ 
+    
+    all:
+      sfXssSafePlugin:
+        definition:
+        
+          HTML:
+            DefinitionID:              'allow flash movies' 
+            DefinitionRev:             1
+    
+          AutoFormat:
+            Custom:                    AddParam # injector : call class "HTMLPurifier_Injector_AddParam"
+            Element:
+              - param:
+                type:                  false
+                contents:              Empty
+                attr_includes:         false
+                attr:
+                  'name':              Text
+                  'value':             Text
+                  
+              - object:
+                type:                  Inline
+                contents:              'Optional: param | Flow | #PCDATA'
+                attr_includes:          false
+                attr:
+                  'type*':             'Enum#application/x-shockwave-flash'
+                  'width*':            Pixels
+                  'height*':           Pixels
+                  'data':              Text
+                  'bgcolor*':          Text
+                  'quality*':          Text
+                  
+              - embed:
+                type:                  Block
+                contents:              Empty
+                attr_includes:         false
+                attr:
+                  'type*':             'Enum#application/x-shockwave-flash'
+                  'width*':            Pixels
+                  'height*':           Pixels
+                  'src*':              URI
+                  'flashvars':         Text
+                  'allowscriptaccess': 'Enum#never'
+                  'enablejsurls':      'Enum#false'
+                  'enablehref':        'Enum#false'
+                  'bgcolor':           Text
+                  'align':             Text
+                  'quality':           Text
+                  'wmode':             Text
+                  'pluginspage':       URI
+                  'saveembedtags':     Text
+                  'salign':            Text
+                  'scale':             Text
+                  'name':              Text
+
+
+`HTML.DefinitionID` is set to a unique identifier for your custom HTML definition. This prevents it from clobbering other custom definitions on the same installation.
+`HTML.DefinitionRev` is a revision integer of your HTML definition.
+`AutoFormat.Element` adds `param`, `object` and `embed` elements, with theirs allowed attributes.
+
+### Add a custom attribute to clean ###
+
+The same way you can add an attribute to an element with `AutoFormat.Attribute` :
+
+
+    all:
+      sfXssSafePlugin:
+        definition:
+          AutoFormat:
+            Attribute:
+              - a:
+                attr_name:             target
+                def:                   'Enum#_blank,_self,_target,_top'
+
+
+### Override cleaner ###
+
+Then you can clean more the added element overloading HTML Purifier.
+For this, move the sample file `sfXssSafeObject.class.php` in the an autoloaded directory (`lib` of your project for instance).
+
+The file contains the classes of transformation for each element.
+There is also an auto-format injector that we called `AddParam` in our example.
+
+### Cache ###
+
+Finally, clear your cache to enable the autoloading Symfony feature to find the new classes.
+
+## Changelog ##
+
+### 2009-10-02 | 0.9.5 ###
+
+ * heristop : Migration to HTML Purifier 4.0
+
+### 2009-05-29 | 0.9.2 ###
+
+ * heristop : Added missing classes from HTML Purifier 3.3 library
+ * heristop : Renamed `sfXssSafeObject.class` sample to avoid autoload
+
+### 2009-05-27 | 0.9.1 Beta ###
+
+ * heristop : Migration to HTML Purifier 3.3
+ * keyes : Patch for Symfony 1.2
+
+### 2008-11-08 | 0.8  ###
+
+ * heristop : Migration to HTML Purifier 3.2
+
+### 2008-06-27 | 0.6.1 Beta ###
+
+ * heristop : Migration to HTML Purifier 3.1.1
+
+### 2008-06-20 | 0.6.0 Beta ###
+
+ * heristop : Adding customizable elements
+
+### 2008-05-19 | 0.5.0 Beta ###
+
+ * heristop: Initial version

@@ -42,7 +42,10 @@ class twitterFilter extends sfFilter {
 								$user->setAttribute('screen_name', $twitterInfo->screen_name, 'twitter');							
 								$user->setAttribute('location', $twitterInfo->location, 'twitter');							
 								$user->setAttribute('name', $twitterInfo->name, 'twitter');																					
-								$user->setAttribute('profile_image_url', $twitterInfo->profile_image_url, 'twitter');
+								$user->setAttribute('profile_image_url', $twitterInfo->profile_image_url, 'twitter');								
+								$user->setAttribute('url', $twitterInfo->url, 'twitter');
+								$user->setAttribute('bio', $twitterInfo->description, 'twitter');
+								
 								$controller->forward('user', 'twitterSignup');			
 							}
 							$forward = true;							

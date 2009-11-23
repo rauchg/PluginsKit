@@ -38,6 +38,13 @@ class PluginAddStep2Form extends PluginAddStepForm
 	}
 
 	public function doValidate($validator, $values){
+		if ($values['id']){
+			$plugin = PluginPeer::retrieveByPk($values['id']);
+			if (!sfContext::getInstance()->getUser()->ownsPlugin($plugin)){				
+				throw new sfValidatorError($validator, 'You don\'t own the plugin you\'re trying to edit');
+			}
+		}
+		
 		$tags = $this->fetch(sprintf('http://github.com/api/v2/json/repos/show/%s/%s/tags', $values['user'], $values['repository']));
 		
 		if ($tagsArr = @json_decode($tags))

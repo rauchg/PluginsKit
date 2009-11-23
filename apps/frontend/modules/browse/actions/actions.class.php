@@ -38,6 +38,9 @@ class browseActions extends sfActions
 		if ($this->form->getValue('search'))
 			$c->add(PluginPeer::TITLE, '%' . $this->form->getValue('search') . '%', Criteria::LIKE);			
 		
+		if ($this->form->getValue('official'))
+			$c->add(PluginPeer::OFFICIAL, 1);
+		
 		if ($this->form->getValue('category'))
 		{
 			$category = TermPeer::retrieveBySlug($this->form->getValue('category'));

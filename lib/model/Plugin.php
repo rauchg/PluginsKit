@@ -80,39 +80,45 @@ class Plugin extends BasePlugin
 	}
 	
 	public function setGitTags($tags, $stable = null){
-		foreach ($tags as $tag){
-			$current = $this->getGitTagByName($tag);
+		// delete all current tags which are obsolete
+		$currentTags = array();
+		foreach ($this->getPluginTags() as $gitTag){
+			$currentTags[] = $gitTag->getName();
+		}
+		
+		$deleteTags = array_diff($currentTags, $tags);
+		foreach ($deleteTags as $tag){
+			$criteria = new Criteria();
+			$criteria->add(PluginPeer::PLUGIN_ID, $this->getId());
+			$criteria->add(PluginPeer::NAME, $tag);
+			
+			PluginTagPeer::doDelete($c);
+		}
+		
+		foreach ($tags as $i => $tag){
+			if (!trim($tag)) continue;
+			
+			$existent = $this->getGitTagByName($tag);
+			
 			// if it was marked as stable and it's not the currently stable one, unmark it
-			if ($current && $stable && $current->getCurrent() != $stable){
+			if ($existent && $existent->isCurrent() && $stable && $existent->getName() !== $stable){
 				$current->setCurrent(false);
 				$current->save();
 			}
-			if (!$current){
+			if (!$existent){
 				$t = new PluginTag();
 				$t->setPluginId($this->getId());
 				$t->setName($tag);
-				if ($stable !== null && $stable == $tag){
+				if (($stable === null && ($i + 1 == sizeof($tags))) || ($tag === $stable)){
 					$t->setCurrent(true);
 				}
 				$t->save();
+				
+				if ($t->isCurrent()){
+					$this->stable_tag = $t;
+				}
 			}
 		}
-	}
-	
-	public function setStableTag($tag){
-		$current = $this->getStableTag();
-		
-		if ($current){
-			if ($current->getName() == $tag) return;
-			$current->setCurrent(false);
-			$current->save();
-		} 		
-		
-		$t = $this->getGitTagByName($tag);
-		$t->setCurrent(true);
-		$t->save();
-		
-		$this->stable_tag = $t;
 	}
 	
 	public function getCategory(){
@@ -122,6 +128,23 @@ class Plugin extends BasePlugin
 	public function setCategory($name){
 		$this->setTerm(TermPeer::retrieveByTitle($name));
 		$this->save();
+	}
+	
+	public function setDependencies($dependencies, $deletePrior = true){
+		if ($deletePrior){
+			$c = new Criteria();
+			$c->add(PluginDependencyPeer::PLUGIN_ID, $this->getId());
+			PluginDependencyPeer::doDelete($c);	
+		}
+		
+		foreach ($dependencies as $dep){
+			$obj = new PluginDependency();
+			$obj->fromArray($dep, BasePeer::TYPE_FIELDNAME);
+			$obj->setPluginId($this->getId());
+			$obj->save();
+		}
+
+		return $this;
 	}
 	
 	public function setArbitrarySections($sections, $deletePrior = true){
@@ -190,6 +213,14 @@ class Plugin extends BasePlugin
 		$c->add(PluginScreenshotPeer::PRIMARY, false);
 		
 		return $this->getPluginScreenshots($c);
+	}
+	
+	public function getDownloadsCount(){
+		return (int) parent::getDownloadsCount();
+	}
+	
+	public function getCommentsCount(){
+		return (int) parent::getCommentsCount();
 	}
 	
 	public function save(PropelPDO $con = null){

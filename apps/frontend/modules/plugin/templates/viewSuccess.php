@@ -1,4 +1,6 @@
 <?php use_helper('Text') ?>
+<?php use_helper('XssSafe') ?>
+
 <?php $raw = $sf_data->getRaw('plugin'); ?>
 
 <div class="block" id="project">
@@ -6,7 +8,7 @@
 	
 	<div class="block" id="project-desc">
 		<?php if ($plugin->getScreenshot()): ?><p id="thumb"><a href="<?php echo url_for_screenshot($plugin->getScreenshot()) ?>" class="remooz"><span class="project_thumb"><?php echo thumbnail_for($plugin) ?></span></a></p><?php endif; ?>
-		<?php echo $raw->getDescription(); ?>
+		<?php echo esc_xsssafe($raw->getDescription()); ?>
 	</div>
 	
 	<hr />
@@ -24,6 +26,12 @@
 		<?php endif ?>
 	</div>
 	
+	<?php if ($sf_user->isAuthenticated() && $sf_user->ownsPlugin($plugin)): ?>
+	<form action="<?php echo url_for('plugin/add') ?>" method="post" accept-charset="utf-8" id="update-form" class="block">
+		<input type="hidden" name="id" value="<?php echo $plugin->getSlug() ?>" />
+	</form>
+	<?php endif ?>
+	
 	<hr />
 	
 	<div class="block span-8 colborder">
@@ -33,7 +41,7 @@
 			<dt>Author</dt>
 			<dd><?php echo link_to($plugin->getAuthor()->getFullname(), 'user', array('username' => $plugin->getAuthor()->getUsername())) ?></dd>
 			
-			<?php if ($plugin->getStableTag()): ?>
+			<?php if ($plugin->getStableTag()): ?>				
 			<dt>Current version</dt>
 			<dd><?php echo $plugin->getStableTag()->getName() ?></dd>
 			<?php endif ?>
@@ -86,13 +94,34 @@
 		<h3 class="blue"><span>Dependencies</span></h3>
 		
 		<ul>
-			<?php foreach ($dependencies as $dep): ?>
+			<?php $deps = array(); ?>
+			<?php foreach ($dependencies as $dep): ?>			
+				<?php if ($dep->getPluginTag()): 
+					$plugin = $dep->getPluginTag()->getPlugin();
+				?>
+				<li><?php echo link_to($plugin->getSlug() . '/' . $dep->getVersion(), 'plugin', array('slug' => $plugin->getSlug())) ?></li>
+				<?php else: 
+					if (!isset($deps[$dep->getScope() . '/' . $dep->getVersion()]))
+						$deps[$dep->getScope() . '/' . $dep->getVersion()] = array();
+					$deps[$dep->getScope() . '/' . $dep->getVersion()][] = $dep->getComponent();
+				?>					
+				<?php endif ?>			
+			<?php endforeach ?>
+			
+			<?php foreach ($deps as $scope => $components): 
+				$components = array_unique($components);
+			?>
 			<li>
-				<?php if ($dep->isExternal()): ?>
-				<a href="<?php echo $dep->getUrl() ?>"><?php echo truncate_text($dep->getTitle(), 0, 20) ?></a>
+				<?php echo $scope ?>:
+				
+				<?php if (sizeof($components) == 1): ?>
+				<?php echo $components[0] ?>
 				<?php else: ?>
-				<?php $foreignTag = $dep->getPluginTag(); ?>
-				<?php echo link_to($foreignTag->getPlugin()->getTitle(), '@plugin?slug=' . $foreignTag->getPlugin()->getSlug()) ?> &mdash; <?php echo link_to($foreignTag->getName(), 'download', array('project' => $foreignTag->getPlugin()->getSlug(), 'tag' => $foreignTag->getName())) ?>
+				<ul>
+					<?php foreach ($components as $component): ?>
+					<li><?php echo $component ?></li>
+					<?php endforeach ?>
+				</ul>
 				<?php endif ?>
 			</li>
 			<?php endforeach ?>
@@ -106,7 +135,7 @@
 	<div class="block section">
 		<h3 class="blue"><span>How to use</span></h3>
 		
-		<?php echo $raw->getHowtouse(); ?>
+		<?php echo esc_xsssafe($raw->getHowtouse()); ?>
 	</div>	
 	
 	<?php if ($sections->count()): ?>
@@ -114,7 +143,7 @@
 	<hr />	
 	<div class="block section">
 		<h3 class="blue"><span><?php echo $section->getTitle(); ?></span></h3>		
-		<?php echo $section->getRawValue()->getContent(); ?>
+		<?php echo esc_xsssafe($section->getRawValue()->getContent()); ?>
 	</div>
 	<?php endforeach ?>
 	<?php endif ?>

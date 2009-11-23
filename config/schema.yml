@@ -69,10 +69,12 @@ propel:
     id:
     plugin_id:        { type: integer, foreignTable: plugin, foreignReference: id, onDelete: cascade }
     # Used if the dependency is some version of a plugin existing in the forge
-    plugin_tag_id:    { type: integer, foreignTable: plugin_tag, foreignReference: id, onDelete: cascade }          
+    plugin_tag_id:    { type: integer, foreignTable: plugin_tag, foreignReference: id, onDelete: cascade, required: false }          
+    # Below are only used for core / more, or plugins not yet registered in the forge
+    scope:            { type: varchar(200), required: false }
+    version:          { type: varchar(200), required: false }
+    component:        { type: varchar(200), required: false }
     created_at:
-    _uniques:
-      unique_git:     [plugin_tag_id, plugin_id]
     
   # Git tags for the plugin. Fetched from GitHub
   plugin_tag:

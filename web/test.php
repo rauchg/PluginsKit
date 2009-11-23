@@ -37,6 +37,8 @@ class ForgeJSParser
 		} catch (InvalidArgumentException $e){
 			throw new ForgeJSParserException('Error parsing the YAML fragment in the JS. Make sure it\'s valid YAML.');
 		}
+		
+		print_r($this->yaml);
 	}
 	
 	public function getData(){
@@ -51,4 +53,4 @@ class ForgeJSParser
 
 class ForgeJSParserException extends Exception {}
 
-new ForgeJSParser(file_get_contents(dirname(__FILE__) . '/js/forge.js'));
+new ForgeJSParser(file_get_contents(dirname(__FILE__) . '/js/pluginskit.js'));

@@ -19,10 +19,14 @@ abstract class BaseFormPropel extends sfFormPropel
 			$errors = array();
 			$widgetSchema = $this->getWidgetSchema();
 			$fields = $widgetSchema->getFields();
-			foreach ($this->getErrorSchema()->getErrors() as $name => $error){				
+			
+			foreach ($this->getErrorSchema()->getErrors() as $name => $error){
 				if ($name || $forceField){
 					if ($forceField) $name = $forceField;
-					$id = $fields[$name]->generateId($widgetSchema->generateName($name));
+					if (isset($fields[$name]))
+						$id = $fields[$name]->generateId($widgetSchema->generateName($name));
+					else
+						$id = '__global__';
 				} else {
 					$id = '__global__';
 				}

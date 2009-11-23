@@ -17,7 +17,7 @@ class ForgeGitHub {
 	function initialize($url){
 		$match = preg_match('#(https?://)?(www\.)?github\.com/([^/]+)/([^/]+)(/?|/tree(.*))?#i', $url, $parts);
 		if (!$match || !$parts[3] || !$parts[4]){
-			throw new ForgeException('GitHub url could not be parsed');
+			throw new ForgeException('GitHub URL not valid');
 		}
 		$this->user = strtolower($parts[3]);
 		$this->project = strtolower($parts[4]);

@@ -10,8 +10,7 @@
 class PluginAddStep6Form extends PluginAddStepForm
 {
 	
-	protected $dependencies = array(),
-						$localDependencies = array();
+	protected $dependencies = array();
 	
 	public function configure(){
 		$this->setWidgets(array(
@@ -47,17 +46,37 @@ class PluginAddStep6Form extends PluginAddStepForm
 			
 			// check for well formed dependencies
 			if (isset($data['requires'])){
-				foreach ($data['requires'] as $requirement){
+				foreach ($data['requires'] as $a => $b){
 					
-					if (is_array($requirement)){
-						foreach ($requirement as $k => $v){
-							if (!isset($this->dependencies[$k])) $this->dependencies[$k] = array();
-							$this->dependencies[$k] = array_merge($this->dependencies[$k], is_array($v) ? $v : array());
-						}
+					if (strstr($a, '/')){
+						$pieces = explode('/', $a);
+						$pluginName = $pieces[0];
+						$version = $pieces[1];						
 					} else {
-						$this->localDependencies[] = $requirement;
-					}					
+						throw new sfValidatorError($validator, sprintf('Dependency "%s" is invalid. The format should be <em>plugin-uid</em>/<em>release</em>: [<em>provided-component</em>, ...]'));
+					}
 					
+					$plugin = PluginPeer::retrieveBySlug($pluginName);
+					
+					if (!is_array($b)) $b = array($b);
+					
+					foreach ($b as $dep){
+						if ($plugin){
+							$c = new Criteria();
+							$c->add(PluginTagPeer::PLUGIN_ID, $plugin);
+							$plugintag = PluginTagPeer::retrieveByName($dep, $c);
+							if ($plugintag){
+								$plugin_tag_id = $plugintag->getId();
+							} else {
+								$plugin_tag_id = null;
+							}
+						} else {
+							$plugin_tag_id = null;
+						}
+						
+						$this->dependencies[] = array('scope' => $pluginName, 'version' => $version, 'component' => $dep, 'plugin_tag_id' => $plugin_tag_id);
+					}
+												
 				}				
 			}
 			
@@ -66,10 +85,6 @@ class PluginAddStep6Form extends PluginAddStepForm
 	
 	public function getDependencies(){
 		return $this->dependencies;
-	}
-	
-	public function getLocalDependencies(){
-		return $this->localDependencies;
 	}
 	
 } // END class PluginAddStep6Form extends PluginAddStepForm

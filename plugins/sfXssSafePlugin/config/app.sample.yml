@@ -1,0 +1,115 @@
+all:
+  sfXssSafePlugin:
+
+    definition:
+
+      # For further configuration refer to HTML Purifier documentation
+      # http://htmlpurifier.org/
+
+      HTML:
+        TidyLevel:              medium   # Values : "none", "light", "medium", "heavy"
+        Doctype:                null     # Accepts valid Doctypes, like 'XHTML 1.0 Transitional'
+        Trusted:                false
+#        AllowedAttributes:      [*.style]
+#        AllowedElements:        [b, i, u, br]
+        
+# Allow flash movies [
+#        DefinitionID:              'allow flash movies' 
+#        DefinitionRev:             1
+#
+#      AutoFormat:
+#        Custom:                    AddParam # injector : call class "HTMLPurifier_Injector_AddParam"
+#        Element:
+#          - param:
+#            type:                  false
+#            contents:              Empty
+#            attr_includes:         false
+#            attr:
+#              'name':              Text
+#              'value':             Text
+#              
+#          - object:
+#            type:                  Inline
+#            contents:              'Optional: param | Flow | #PCDATA'
+#            attr_includes:          false
+#            attr:
+#              'type*':             'Enum#application/x-shockwave-flash'
+#              'width*':            Pixels
+#              'height*':           Pixels
+#              'data':              Text
+#              'bgcolor*':          Text
+#              'quality*':          Text
+#              
+#          - embed:
+#            type:                  Block
+#            contents:              Empty
+#            attr_includes:         false
+#            attr:
+#              'type*':             'Enum#application/x-shockwave-flash'
+#              'width*':            Pixels
+#              'height*':           Pixels
+#              'src*':              URI
+#              'flashvars':         Text
+#              'allowscriptaccess': 'Enum#never'
+#              'enablejsurls':      'Enum#false'
+#              'enablehref':        'Enum#false'
+#              'bgcolor':           Text
+#              'align':             Text
+#              'quality':           Text
+#              'wmode':             Text
+#              'pluginspage':       URI
+#              'saveembedtags':     Text
+#              'salign':            Text
+#              'scale':             Text
+#              'name':              Text
+# ] Allow flash movies
+
+#        Attribute:
+#          - a:
+#            attr_name:             target
+#            def:                   'Enum#_blank,_self,_target,_top'
+
+#      Core:
+#        Encoding:               UTF-8
+#          # This directive only accepts ISO-8859-1 if iconv is not enabled
+#        RemoveInvalidImg:       true
+#        EscapeInvalidChildren:  false
+#        EscapeInvalidTags:      false
+#        ColorKeywords:
+#          maroon:               '#800000'
+#          red:                  '#FF0000'
+#          orange:               '#FFA500'
+#          yellow:               '#FFFF00'
+#          olive:                '#808000'
+#          purple:               '#800080'
+#          fuchsia:              '#FF00FF'
+#          white:                '#FFFFFF'
+#          lime:                 '#00FF00'
+#          green:                '#008000'
+#          navy:                 '#000080'
+#          blue:                 '#0000FF'
+#          aqua:                 '#00FFFF'
+#          teal:                 '#008080'
+#          black:                '#000000'
+#          silver:               '#C0C0C0'
+#          gray:                 '#808080'
+
+#      CSS:
+#        AllowImportant:          false
+
+#      Filter:
+#        YouTube:                false
+#          # Allow YouTube video embeded
+
+#      AutoFormat:
+#        AutoParagraph:          false
+
+#      URI:
+#        Disable:                false
+#        DisableExternal:        false
+
+#      Attr:
+#        AllowedFrameTargets:    [_self, _blank]
+        
+#      Output:
+#        TidyFormat:             false

@@ -3,12 +3,12 @@ default:
     content-type: text/html
 
   metas:
-    title:        PluginsKit
-    description:  Plugins directory
+    title:        MooTools Plugins
+    description:  MooTools Plugins directory
     language:     en
     robots:       index, follow
 
-  stylesheets:    [screen.css, print.css: {media: print}, pluginskit.css]
+  stylesheets:    [screen.css, http://mootools.net/assets/styles/layout.css, http://mootools.net/assets/styles/main.css, print.css: {media: print}, pluginskit.css]
 
   javascripts:    [mootools-1.2.2-core+more.js, lighter.js, pluginskit.js, fancyzoom.js, fancyzoom.html.js]
 

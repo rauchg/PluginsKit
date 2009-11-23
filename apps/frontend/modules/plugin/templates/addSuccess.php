@@ -17,7 +17,7 @@
 		
 		<hr class="clear" />		
 		
-		<div class="input_text block">
+		<div class="input_text block required">
 			<?php echo $form['url']->renderLabel('GitHub repository URL') ?>
 			<?php echo $form['url']->render(array('class' => 'required', 'autocomplete' => 'off')) ?>
 			<?php echo $form['url']->renderError() ?>

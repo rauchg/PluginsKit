@@ -19,7 +19,7 @@ class ForgeJSParser
 		preg_match_all('#(?m)/\*\s*(^---(\s*$.*?)^\.\.\.)\s*#sm', $this->data, $yaml);
 
 		if (!isset($yaml[2]) || !isset($yaml[2][0]) || !$yaml[2][0]){
-			throw new ForgeJSParserException('Could not find required YAML header in JS file.');
+			throw new ForgeJSParserException('Couldn\'t find required YAML header in JS file.');
 		}
 
 		$this->rawYaml = trim($yaml[2][0]);

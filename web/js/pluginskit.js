@@ -2,12 +2,13 @@
 ---
 name: PluginsKit JavaScript
 authors:
- - Guillermo Rauch
+  - Guillermo Rauch
 requires:
- - core/1.2.1: *
- - fancyzoom
+  core/1.2.1:     '*'
+  more:           [Request.Queue, Class.Occlude]
+  fancyzoom:      0.1
 provides:
- - pluginskit
+  - pluginskit
 ...
 */
 
@@ -50,7 +51,7 @@ var ProgressBar = new Class({
 	
 });
 
-var ForgeGitHubRequest = new Class({
+var ForgePluginRequest = new Class({
 	
 	Extends: Request.JSON,
 	
@@ -120,7 +121,8 @@ var ForgeGitHubRequest = new Class({
 	
 	onFailure: function(){
 		this.parent();
-		this.cleanup();
+		// @todo
+		// this.cleanup();
 	},
 	
 	cancel: function(){
@@ -141,7 +143,7 @@ var Forge = {
 	init: function(){		
 		// Submit form
 		if ($('add-plugin-form')){
-			var request = new ForgeGitHubRequest({
+			var request = new ForgePluginRequest({
 				url: $('add-plugin-form').get('action'),
 				method: 'post',
 				onFirstRequest: function(){
@@ -163,6 +165,34 @@ var Forge = {
 				if (!$('plugin_add_submit').hasClass('input_submit_disabled')) request.send({
 					data: { 
 						'url': $('url').get('value')
+					}
+				});
+			});
+		}
+		
+		// Update form
+		if ($('plugin-update')){
+			var request = new ForgePluginRequest({
+				url: $('update-form').get('action'),
+				method: 'post',
+				onFirstRequest: function(){
+					$('plugin-update').set('disabled', 'disabled').addClass('button_disabled');
+				},
+				onStepErrors: function(){
+					$('plugin-update').erase('disabled').removeClass('button_disabled');					
+				},
+				onStepsSuccess: function(){
+					$('plugin-update').erase('disabled').removeClass('button_disabled');					
+				},
+				reportInject: ['update-form', 'bottom']
+			});
+			
+			$('plugin-update').addEvent('click', function(ev){
+				ev.preventDefault();
+				$('update-form').setStyle('display', 'block');
+				request.send({
+					data: {
+						'id': $('update-form').getElement('input[name=id]').get('value')
 					}
 				});
 			});

@@ -39,8 +39,8 @@ class defaultActions extends sfActions
 		$c = new Criteria();
 		$c->addDescendingOrderByColumn(AuthorPeer::LOGGED_AT);
 		$c->setLimit(6);
-		if ($this->getUser()->isAuthenticated())
-			$c->add(AuthorPeer::ID, $this->getUser()->getId(), Criteria::NOT_EQUAL);
+		// if ($this->getUser()->isAuthenticated())
+		// 	$c->add(AuthorPeer::ID, $this->getUser()->getId(), Criteria::NOT_EQUAL);
 		$this->authors = AuthorPeer::doSelect($c);
   }
 
