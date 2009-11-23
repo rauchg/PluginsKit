@@ -184,6 +184,7 @@ var Forge = {
 				onStepsSuccess: function(){
 					$('plugin-update').erase('disabled').removeClass('button_disabled');					
 				},
+				startStatusText: 'Starting plugin update',
 				reportInject: ['update-form', 'bottom']
 			});
 			
