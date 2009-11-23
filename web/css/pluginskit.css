@@ -129,11 +129,12 @@ ol.howto-steps li .code { margin-top: 10px; }
 #add-plugin-form .input_submit { overflow: hidden; zoom: 1; }
 #add-plugin-form .input_submit input { float: right; }
 
-#add-plugin-form .github-request-report { float: right; padding-right: 40px; padding-top: 3px; }
-#add-plugin-form .github-request-report .progress-bar, #add-plugin-form .github-request-report .status, #add-plugin-form .github-request-report .errors { float: left;  margin-left: 15px; }
+#add-plugin-form .github-request-report { float: right; padding-right: 35px; padding-top: 4px; }
+#add-plugin-form .github-request-report .progress-bar, #add-plugin-form .github-request-report .status, #add-plugin-form .github-request-report .errors { float: left; }
+#add-plugin-form .github-request-report .progress-bar { margin-left: 15px; }
 
 .github-request-report .status { font-weight: bold; font-size: 11px; padding-top: 2px; }
-.github-request-report .errors { margin: 0; padding: 0; }
+.github-request-report .errors { margin: 0 !important; padding: 0; }
 .github-request-report .errors li { font-size: 11px; font-weight: bold; color: #4E0005; list-style-type: none; margin: 0; padding: 2px 0 0 0; }
 
 #add-plugin-form .github-request-report .errors li { width: 400px; text-align: right; }
