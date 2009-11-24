@@ -15,6 +15,8 @@ class PluginAddForm extends PluginForm
 		
 		$this->setWidgets(array('url' => new sfWidgetFormInput));		
 		
+		unset($this->validatorSchema['description_clean']);
+		
 		$this->validatorSchema['category'] = new sfValidatorPass;
 		$this->validatorSchema['dependencies'] = new sfValidatorPass;
 		$this->validatorSchema['screenshot'] = new sfValidatorPass;
