@@ -27,5 +27,5 @@ function thumbnail_image_tag(PluginScreenshot $object){
 
 function url_for_screenshot($object){
 	$path = basename(sfConfig::get('sf_upload_dir')) . '/' . sfConfig::get('app_screenshots_path') . '/' . $object->getPluginId() . '/' . $object->getId();
-	return '/' . $path . '/' . $object->getFilename();
+	return image_path('/' . $path . '/' . $object->getFilename());
 }
