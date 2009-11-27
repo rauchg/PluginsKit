@@ -39,7 +39,7 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 .project_thumb img { padding: 1px; background: #fff; margin: 0; }
 
 .projects { overflow: hidden; zoom: 1; }
-.projects li { list-style-type: none; position: relative; width: 190px; margin-right: 70px; float: left; margin-bottom: 10px; }
+.projects li { list-style-type: none; position: relative; width: 190px; margin-right: 52px; float: left; margin-bottom: 15px; }
 .projects li a { text-decoration: none; }
 .projects li .name { font-weight: bold; color: #464646; display: block; margin-bottom: 5px; }
 .projects li .name img { vertical-align: middle; }

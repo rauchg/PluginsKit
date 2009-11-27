@@ -35,8 +35,8 @@
 	<?php if ($pager->getResults()->count()): ?>
 	<div class="block">
 		<ul class="projects">
-			<?php foreach ($pager->getResults() as $plugin): ?>
-			<?php include_partial('plugin/bit', array('plugin' => $plugin, 'search' => $form->getValue('search'))) ?>
+			<?php foreach ($pager->getResults() as $i => $plugin): ?>
+			<?php include_partial('plugin/bit', array('plugin' => $plugin, 'i' => $i, 'search' => $form->getValue('search'))) ?>
 			<?php endforeach ?>
 		</ul>
 	</div>

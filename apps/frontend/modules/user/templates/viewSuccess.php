@@ -42,8 +42,8 @@
 	</div>
 	
 	<ul class="projects">
-		<?php foreach ($plugins as $plugin): ?>
-		<?php include_partial('plugin/bit', array('plugin' => $plugin)) ?>
+		<?php foreach ($plugins as $i => $plugin): ?>
+		<?php include_partial('plugin/bit', array('plugin' => $plugin, 'i' => $i)) ?>
 		<?php endforeach ?>
 	</ul>
 	<?php else: ?>

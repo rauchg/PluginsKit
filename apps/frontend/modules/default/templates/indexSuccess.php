@@ -3,8 +3,8 @@
 	
 	<?php if ($hot->count()): ?>	
 	<ul class="projects">
-		<?php foreach ($recent as $plugin): ?>
-		<?php include_partial('plugin/bit', array('plugin' => $plugin)) ?>
+		<?php foreach ($recent as $i => $plugin): ?>
+		<?php include_partial('plugin/bit', array('plugin' => $plugin, 'i' => $i)) ?>
 		<?php endforeach ?>
 	</ul>
 	<?php else: ?>
@@ -19,8 +19,8 @@
 	
 	<?php if ($hot->count()): ?>
 	<ul class="projects">
-		<?php foreach ($hot as $plugin): ?>
-		<?php include_partial('plugin/bit', array('plugin' => $plugin)) ?>
+		<?php foreach ($hot as $i => $plugin): ?>
+		<?php include_partial('plugin/bit', array('plugin' => $plugin, 'i' => $i)) ?>
 		<?php endforeach ?>
 	</ul>	
 	<?php else: ?>
