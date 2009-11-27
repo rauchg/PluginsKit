@@ -85,12 +85,11 @@ class Plugin extends BasePlugin
 		foreach ($this->getPluginTags() as $gitTag){
 			$currentTags[] = $gitTag->getName();
 		}
-		
 		$deleteTags = array_diff($currentTags, $tags);
 		foreach ($deleteTags as $tag){
 			$criteria = new Criteria();
-			$criteria->add(PluginPeer::PLUGIN_ID, $this->getId());
-			$criteria->add(PluginPeer::NAME, $tag);
+			$criteria->add(PluginTagPeer::PLUGIN_ID, $this->getId());
+			$criteria->add(PluginTagPeer::NAME, $tag);
 			
 			PluginTagPeer::doDelete($c);
 		}
@@ -101,7 +100,7 @@ class Plugin extends BasePlugin
 			$existent = $this->getGitTagByName($tag);
 			
 			// if it was marked as stable and it's not the currently stable one, unmark it
-			if ($existent && $existent->isCurrent() && $stable && $existent->getName() !== $stable){
+			if ($existent && $existent->isCurrent() && $stable && $existent->getName(true) !== $stable){
 				$existent->setCurrent(false);
 				$existent->save();
 			}
@@ -109,7 +108,7 @@ class Plugin extends BasePlugin
 				$t = new PluginTag();
 				$t->setPluginId($this->getId());
 				$t->setName($tag);
-				if (($stable === null && ($i + 1 == sizeof($tags))) || ($tag == $stable)){
+				if (($stable === null && ($i + 1 == sizeof($tags))) || (floatval($tag) == $stable)){
 					$t->setCurrent(true);
 				}
 				$t->save();

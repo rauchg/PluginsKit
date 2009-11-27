@@ -53,4 +53,25 @@ class ForgeJSParser
 
 class ForgeJSParserException extends Exception {}
 
-new ForgeJSParser(file_get_contents(dirname(__FILE__) . '/js/pluginskit.js'));
+new ForgeJSParser('/*
+--- 
+provides: 
+- MerryGoRound
+license: MIT-style
+requires: 
+ core/1.2.3: 
+ - Class.Extras
+ - Element.Event
+ - Element.Style
+ - Element.Dimensions
+ - Fx.Tween
+ - String
+ - Array
+description: A fully-automated, flexible, customizable carousel class for Mootools.
+authors: 
+- 3n
+...
+*/
+sad
+asd
+asd');

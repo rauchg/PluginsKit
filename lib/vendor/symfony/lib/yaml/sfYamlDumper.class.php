@@ -11,12 +11,12 @@
 require_once(dirname(__FILE__).'/sfYamlInline.class.php');
 
 /**
- * sfYamlDumper class.
+ * sfYamlDumper dumps PHP variables to YAML strings.
  *
  * @package    symfony
- * @subpackage util
+ * @subpackage yaml
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfYamlDumper.class.php 17749 2009-04-29 11:54:22Z fabien $
+ * @version    SVN: $Id: sfYamlDumper.class.php 10575 2008-08-01 13:08:42Z nicolas $
  */
 class sfYamlDumper
 {

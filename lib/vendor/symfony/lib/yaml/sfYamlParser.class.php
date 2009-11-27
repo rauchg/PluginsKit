@@ -11,12 +11,12 @@
 require_once(dirname(__FILE__).'/sfYamlInline.class.php');
 
 /**
- * sfYamlParser class.
+ * sfYamlParser parses YAML strings to convert them to PHP arrays.
  *
  * @package    symfony
- * @subpackage util
+ * @subpackage yaml
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfYamlParser.class.php 21875 2009-09-11 05:54:39Z fabien $
+ * @version    SVN: $Id: sfYamlParser.class.php 10832 2008-08-13 07:46:08Z fabien $
  */
 class sfYamlParser
 {
@@ -44,6 +44,8 @@ class sfYamlParser
    * @param  string $value A YAML string
    *
    * @return mixed  A PHP value
+   *
+   * @throws InvalidArgumentException If the YAML is not valid
    */
   public function parse($value)
   {
@@ -212,7 +214,28 @@ class sfYamlParser
           return $value;
         }
 
-        throw new InvalidArgumentException(sprintf('Unable to parse line %d (%s).', $this->getRealCurrentLineNb() + 1, $this->currentLine));
+        switch (preg_last_error())
+        {
+          case PREG_INTERNAL_ERROR:
+            $error = 'Internal PCRE error on line';
+            break;
+          case PREG_BACKTRACK_LIMIT_ERROR:
+            $error = 'pcre.backtrack_limit reached on line';
+            break;
+          case PREG_RECURSION_LIMIT_ERROR:
+            $error = 'pcre.recursion_limit reached on line';
+            break;
+          case PREG_BAD_UTF8_ERROR:
+            $error = 'Malformed UTF-8 data on line';
+            break;
+          case PREG_BAD_UTF8_OFFSET_ERROR:
+            $error = 'Offset doesn\'t correspond to the begin of a valid UTF-8 code point on line';
+            break;
+          default:
+            $error = 'Unable to parse line';
+        }
+
+        throw new InvalidArgumentException(sprintf('%s %d (%s).', $error, $this->getRealCurrentLineNb() + 1, $this->currentLine));
       }
 
       if ($isRef)
@@ -237,7 +260,7 @@ class sfYamlParser
   /**
    * Returns the current line indentation.
    *
-   * @returns integer The current line indentation
+   * @return integer The current line indentation
    */
   protected function getCurrentLineIndentation()
   {
@@ -506,7 +529,9 @@ class sfYamlParser
    */
   protected function isCurrentLineComment()
   {
-    return 0 === strpos(ltrim($this->currentLine, ' '), '#');
+    //checking explicitly the first char of the trim is faster than loops or strpos
+    $ltrimmedLine = ltrim($this->currentLine, ' ');
+    return $ltrimmedLine[0] === '#';
   }
 
   /**

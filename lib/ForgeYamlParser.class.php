@@ -8,7 +8,10 @@ class ForgeYamlParser extends sfYamlParser
 	
 	public function __construct($data){
 		try {
-			$this->data = $this->parse($data);			
+		  $version = sfYaml::getSpecVersion();
+		  sfYaml::setSpecVersion('1.2');
+			$this->data = $this->parse($data);	
+		  sfYaml::setSpecVersion($version);		
 		} catch(InvalidArgumentException $e) {
 			$this->errors[] = $e->getMessage();
 		}

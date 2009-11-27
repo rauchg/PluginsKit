@@ -4,7 +4,9 @@
 <?php $raw = $sf_data->getRaw('plugin'); ?>
 
 <div class="block" id="project">
-	<h2 class="green"><span><?php echo $plugin->getTitle() ?> <em class="version"><?php echo $plugin->getStableTag()->getName() ?></em></span></h2>
+	<h2 class="green"><span><?php echo $plugin->getTitle() ?> 
+	<?php if ($plugin->getStableTag()): ?><em class="version"><?php echo $plugin->getStableTag()->getName() ?></em><?php endif ?>
+	</span></h2>
 	
 	<div class="block" id="project-desc">
 		<?php if ($plugin->getScreenshot()): ?><p id="thumb"><a href="<?php echo url_for_screenshot($plugin->getScreenshot()) ?>" class="remooz"><span class="project_thumb"><?php echo thumbnail_for($plugin) ?></span></a></p><?php endif; ?>
@@ -20,7 +22,11 @@
 		<?php if ($plugin->getDemourl()): ?>
 		<a href="<?php echo $plugin->getDemourl() ?>">Demo</a>
 		<?php endif; ?>
+
+    <?php if ($plugin->getStableTag()): ?>
 		<?php echo link_to('Download', 'download', array('project' => $plugin->getSlug(), 'tag' => $plugin->getStableTag()->getName())) ?>
+    <?php endif ?>
+
 		<?php if ($sf_user->isAuthenticated() && $sf_user->ownsPlugin($plugin)): ?>
 		<?php echo link_to('Update', '@pluginupdate?slug=' . $plugin->getSlug(), array('id' => 'plugin-update')) ?>
 		<?php endif ?>
