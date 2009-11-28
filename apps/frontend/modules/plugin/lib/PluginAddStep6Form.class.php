@@ -40,7 +40,7 @@ class PluginAddStep6Form extends PluginAddStepForm
 			$requiredFields = array('provides', 'authors');			
 			foreach ($requiredFields as $required){
 				if (!isset($data[$required])){
-					throw new sfValidatorError($validator, sprintf('`%s` field missing in %s', $required, basename($file)));
+					throw new sfValidatorError($validator, sprintf('`%s` field missing or empty in %s', $required, basename($file)));
 				}
 			}
 			
@@ -53,7 +53,7 @@ class PluginAddStep6Form extends PluginAddStepForm
 						$pluginName = $pieces[0];
 						$version = $pieces[1];						
 					} else {
-						throw new sfValidatorError($validator, sprintf('Dependency "%s" is invalid. The format should be <em>plugin-uid</em>/<em>release</em>: [<em>provided-component</em>, ...]'));
+						throw new sfValidatorError($validator, sprintf('Dependency "%s" is invalid. The format should be <b>plugin-uid</b>/<b>release</b>: [<b>provided-component</b>, ...]', $a . ': ' . $b ));
 					}
 					
 					$plugin = PluginPeer::retrieveBySlug($pluginName);

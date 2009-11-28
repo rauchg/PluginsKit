@@ -25,10 +25,10 @@ class ForgeJSParser
 		$this->rawYaml = trim($yaml[2][0]);
 		
 		try {
-			$this->yaml = new sfYamlParser();
-			$this->yaml = $this->yaml->parse($this->rawYaml);
+			$this->yaml = new ForgeYamlParser($this->rawYaml);
+			$this->yaml = $this->yaml->getData();
 		} catch (InvalidArgumentException $e){
-			throw new ForgeJSParserException('Error parsing the YAML fragment in the JS. Make sure it\'s valid YAML.');
+			throw new ForgeJSParserException('Error parsing the YAML fragment in the JS. Parser said: ' . $e->getMessage());
 		}
 	}
 	

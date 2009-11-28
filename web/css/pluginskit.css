@@ -113,6 +113,8 @@ ol.howto-steps li .code { margin-top: 10px; }
 #login-form .input_submit { float: right; margin-top: 24px; }
 #login-form .input_submit input { font-size: 9px; padding: 3px 8px; line-height: 10px; }
 
+#sidebar .required label { font-weight: normal; }
+
 #q { padding: 5px 4px; display: inline; width: 121px; }
 #search_field, #search_submit { display: inline; }
 
