@@ -199,6 +199,12 @@ var Forge = {
 			});
 		}
 		
+		if ($('plugin-delete')){
+		  $('plugin-delete').addEvent('click', function(e){
+		    if (!confirm('Are you sure you want to delete this?')) e.preventDefault();
+		  });
+		}
+		
 		// Object style syntax with files in same level as html document. 
 		$$('#project pre').light({altLines: 'hover', mode: 'ol'});
 		

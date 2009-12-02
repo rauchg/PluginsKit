@@ -270,4 +270,17 @@ class pluginActions extends ForgeActions
 		$this->dependencies = $this->plugin->getPluginDependencys();
 	}
 
+  /**
+   * Delete a plugin
+   *
+   * @author Guillermo Rauch
+   **/
+  public function executeDelete(sfWebRequest $request)
+  {    
+		$this->plugin = PluginPeer::retrieveBySlug($request->getParameter('slug'));
+		$this->plugin->delete();
+		
+		$this->redirect('@homepage');
+  }
+
 }

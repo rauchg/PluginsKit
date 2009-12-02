@@ -74,6 +74,10 @@ plugindiscuss:
   url:  /p/:slug/discuss/*
   param: { module: plugin, action: discuss }
 
+plugindelete:
+  url:  /p/:slug/delete/*
+  param: { module: plugin, action: delete }
+
 plugin:
   url:  /p/:slug/*
   param: { module: plugin, action: view }

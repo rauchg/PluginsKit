@@ -1,2 +1,8 @@
-add:
-  is_secure:  on
+all:
+  is_secure:    on
+  
+view:
+  is_secure:    off
+  
+delete:
+  credentials:  admin

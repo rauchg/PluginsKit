@@ -79,6 +79,11 @@
 			<dt>Report</dt>
 			<dd><a href="http://github.com/<?php echo $github; ?>/issues">GitHub Issues</a></dd>
 			
+			<?php if ($sf_user->hasCredential('admin')): ?>
+			<dt>Admin</dt>
+			<dd><?php echo link_to('Delete', 'plugindelete', array('slug' => $plugin->getSlug()), array('id' => 'plugin-delete')) ?></dd>
+			<?php endif ?>
+			
 			<?php /*
 			<dt>Discuss</dt>
 			<dd><?php echo link_to(sprintf('Comments (%s)', $plugin->getCommentsCount()), '@plugindiscuss?slug=' . $plugin->getSlug()) ?></dd>
