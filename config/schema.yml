@@ -6,7 +6,7 @@ propel:
     email:                { type: varchar(100), required: true}
     password:             varchar(100)
     fullname:             { type: varchar(100), required: true}
-    location:             { type: varchar(100), required: true}
+    location:             varchar(100)
     homepageurl:          varchar(255)
     about:                varchar(255)
     avatar:               varchar(200)
