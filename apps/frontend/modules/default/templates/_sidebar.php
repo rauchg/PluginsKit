@@ -27,9 +27,8 @@
 <form action="<?php echo url_for('@login') ?>" method="post" accept-charset="utf-8">
 	<ul id="login-form" class="required">
 		<li><?php echo $login['email']->renderLabel('Email') ?> <?php echo $login['email']->render(array('class' => 'text')) ?></li>
-		<li>
-			<div class="input_submit"><input type="submit" name="login_submit" value="Login" id="login_submit" /></div>
-			<?php echo $login['password']->renderLabel('Password') ?> <?php echo $login['password']->render(array('class' => 'text')) ?>
+		<li><?php echo $login['password']->renderLabel('Password') ?> <?php echo $login['password']->render(array('class' => 'text')) ?>		  
+		  <div class="input_submit"><input type="submit" name="login_submit" value="Login" id="login_submit" /></div>			
 		</li>					
 	</ul>
 	<?php echo $login->renderHiddenFields() ?>				

@@ -141,6 +141,10 @@ var ForgePluginRequest = new Class({
 var Forge = {
 	
 	init: function(){		
+	  $$('input[type=password]').each(function(el){
+	    new PassShark(el, {duration: 800});
+	  });
+	  
 		// Submit form
 		if ($('add-plugin-form')){
 			var request = new ForgePluginRequest({

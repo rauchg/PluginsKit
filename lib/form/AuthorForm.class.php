@@ -19,6 +19,9 @@ class AuthorForm extends BaseAuthorForm
 		$this->validatorSchema['homepageurl'] = new sfValidatorUrl(array('required' => false));
 	
 	  $this->validatorSchema['email'] = new sfValidatorEmail(array('trim' => true));
-    $validators = $this->validatorSchema->getPostValidator()->setMessage('invalid', 'This email is already in use.');
+    $validators = $this->validatorSchema->getPostValidator()->getValidators();
+    
+    $validators[0]->setMessage('invalid', 'The email supplied is already in use.');
+    $validators[1]->setMessage('invalid', 'The username supplied is already in use.');
   }
 }

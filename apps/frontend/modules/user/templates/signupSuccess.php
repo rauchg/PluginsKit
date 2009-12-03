@@ -38,12 +38,6 @@
 			<?php echo $form['password']->renderLabel('Password') ?>
 			<?php echo $form['password']->render(array('autocomplete' => 'off')) ?>
 			<?php echo $form['password']->renderError() ?>
-
-			<div class="again">
-				<?php echo $form['password_again']->renderLabel('Password again:') ?>
-				<?php echo $form['password_again']->render() ?>
-				<?php echo $form['password_again']->renderError() ?>
-			</div>
 		</div>
 		
 		<hr class="clear" />

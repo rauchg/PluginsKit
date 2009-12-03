@@ -110,7 +110,7 @@ ol.howto-steps li .code { margin-top: 10px; }
 #login-form li { overflow: hidden; }
 #login-form label { }
 #login-form input.text, #q { background: #eee; border: 1px solid #ccc; padding: 2px 4px; width: 95px; display: block; }
-#login-form .input_submit { float: right; margin-top: 24px; }
+#login-form .input_submit { float: right; margin-top: -24px; }
 #login-form .input_submit input { font-size: 9px; padding: 3px 8px; line-height: 10px; }
 
 #sidebar .required label { font-weight: normal; }

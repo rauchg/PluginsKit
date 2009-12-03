@@ -4,7 +4,7 @@
 	<?php if ($form->hasGlobalErrors()): ?>
   <ul class="form-global-errors error_list">
     <?php foreach ($form->getGlobalErrors() as $name => $error): ?>
-    <li><?php echo $name.': '.$error ?></li>
+    <li><?php echo $error ?></li>
     <?php endforeach; ?>
   </ul>
   <?php endif; ?>
@@ -31,15 +31,9 @@
 		<hr class="clear" />
 
 		<div class="input_text inputs_password block">
-			<?php echo $form['password']->renderLabel('Password') ?>
-			<?php echo $form['password']->render(array('autocomplete' => 'off')) ?>
-			<?php echo $form['password']->renderError() ?>
-			
-			<div class="again">
-				<?php echo $form['password_again']->renderLabel('Password again:') ?>
-				<?php echo $form['password_again']->render() ?>
-				<?php echo $form['password_again']->renderError() ?>
-			</div>
+			<?php echo $form['password_change']->renderLabel('Password') ?>
+			<?php echo $form['password_change']->render(array('autocomplete' => 'off')) ?>
+			<?php echo $form['password_change']->renderError() ?>
 		</div>
 		<p class="note">Leave passwords empty if you want them to remain unchanged.</p>
 		<?php endif; ?>
