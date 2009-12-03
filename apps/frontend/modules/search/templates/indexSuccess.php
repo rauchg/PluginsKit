@@ -12,7 +12,7 @@
 		<?php if ($form->hasGlobalErrors()): ?>
 	  <ul class="form-global-errors error_list">
 	    <?php foreach ($form->getGlobalErrors() as $name => $error): ?>
-	    <li><?php echo $name.': '.$error ?></li>
+	    <li><?php echo $error ?></li>
 	    <?php endforeach; ?>
 	  </ul>
 	  <?php endif; ?>
