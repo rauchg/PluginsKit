@@ -1,4 +1,5 @@
 <?php use_helper('Search') ?>
+<?php use_helper('Text') ?>
 <div class="block">
 	<h3 class="red"><span>Search</span></h3>
 	
@@ -32,7 +33,7 @@
   <?php foreach ($res as $item): ?>
     <li>
       <p class="title"><?php echo link_to(highlight_search_result($item->getTitle(), $query), '@plugin?slug=' . $item->getSlug()) ?></p>
-      <p class="desc"><?php echo highlight_search_result($item->getDescriptionClean(), $query) ?></p>
+      <p class="desc"><?php echo truncate_text($item->getDescriptionClean(), 300) ?></p>
 			<p class="author">By <?php echo link_to($item->getAuthor()->getFullName(), '@user?username=' . $item->getAuthor()->getUsername()) ?></p>
     </li>
   <?php endforeach ?>
