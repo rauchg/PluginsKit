@@ -6,22 +6,77 @@
 	</div>
 		
 	<div class="block">
-		<h4>Steps</h4>
+		<h4>Prepare Your Plugin</h4>
 		<ol class="howto-steps">
-			<li><p>Make sure your plugin is a top-level repository. We don't accept plugins that are directories within other repositories.</p></li>
-			<li><p>Write the <code><a href="#readme-md">README.md</a></code> and <code><a href="#package-yml">package.yml</a></code> files (explanation below), and add them to the repository at the top directory.</p></li>
-			<li><p>Make sure you respect the file structure (only the <strong>Source/</strong> subdirectory is enforced, but it's a good idea to have them all).</p>
+			<li>
+				<h5>Set Up Your Git Repository</h5>
+				<p>Make sure your plugin is a top-level repository. We don't accept plugins that are directories within other repositories.</p>
+			</li>
+			<li>
+				<h5>Add a Manifest and a Readme</h5>
+				<p>Write the <code><a href="#readme-md">README.md</a></code> and <code><a href="#package-yml">package.yml</a></code> files (explanation below), and add them to the repository at the top directory.</p>
+			</li>
+			<li>
+				<h5>Organize Your Files</h5>
+				
+				<p>Make sure you respect the file structure (only the <strong>Source/</strong> subdirectory is enforced, but it's a good idea to have them all).</p>
 			<div class="code block"><pre>/
-	Source/
+	Source/						#This can have subdirectories if you like
 		YourPlugin.js				# main file
 		YourPlugin.SomethingElse.js 		# extra component example
 	Docs/
 		YourPlugin.md				# plugin docs
-	Demos/
-	Specs/</pre></div>
+		</pre></div>
 				<p>Docs are encouraged. There's a <a href="http://www.nwhite.net/2009/03/05/moodocs-textmate-command/">bundle</a> for TextMate users to make this easier.</p>
-			</li>				
-			<li><p class="block">{explanation here for yaml header of files}</p></li>
+			</li>
+			<li>
+				<h3>Script Headers</h3>
+				<p>
+					Each script in your <em>/Source</em> directory must have a specific header that includes metadata used by the forge. This header information is a YAML fragment with key/value sets of information that the will use for various features.
+				</p>
+				<p>
+					First, an example (the order of the key/values does not matter):
+				</p>
+<div class="code block"><pre>/*
+---
+description: Element class, Elements class, and basic dom methods.
+
+license: MIT-style
+
+authors:
+- Jimmy Dean
+- Buck Kingsley
+
+requires:
+- localComponent1
+- [localComponent2, localComponent3]
+- externalPackage1:tag/component1
+- externalPackage1:tag: component4
+- externalPackage2:tag: [component1, component2]
+
+provides: [Element, Elements, $, $$]
+
+...
+*/</pre></div>
+				<ul>
+					<li>description: a very brief, one line description of the contents of this file; try to keep this under 100 characters if you can.
+					</li>
+					<li>license: the license for your plugin
+					</li>
+					<li>authors: a list of authors for credit
+					</li>
+					<li>requires: a list of the required components for your plugin to work
+					</li>
+					<li>provides: a list of components that your plugin provides
+					</li>
+				</ul>
+				<p>
+					You can easily test your header by pasting it into <a href="http://yaml-online-parser.appspot.com/">this online YAML tester</a>.
+				</p>
+				<p>
+					<a href="#yamlnotes">See the YAML Header footnotes below for additional tips and details.</a>
+				</p>
+			</li>
 			<li><p>At least one Git tag in your repository is necessary. To tag a 0.1 release, for example, run these commands:</p>
 				<div class="code block"><pre>git tag -a 0.1
 git push --tags</pre></div>
@@ -96,13 +151,72 @@ tags: [animation, canvas]
 #demo: http://url.to.demo
 #current: 0.5</pre></div>
 	
-	<p>Notes:</p>
+	<h3>Notes:</h3>
 	<ul>
 		<li>This is a <a href="http://yaml.org">YAML</a> file. Don't use tabs, use spaces, or the file won't parse.</li>
 		<li>The <strong>category</strong> key has to be one valid, existing category. The list of categories is in the sidebar.</li>
 		<li>Keep <strong>tags</strong> meaningful. Tags that repeat categories names, or stuff like "Javascript", "Cool" are not valuable, and bound to be removed by moderators. Tags that depict techniques or technologies involved are encouraged, such as "canvas", "accessibility".</li>
 		<li>The <strong>current</strong> key points to an existing Git tag in your repository. It's optional, and the last Git tag is used if not present.</li>
 		<li>We recommend using <a href="http://pages.github.com">GitHub pages</a> for <strong>demo</strong>. This ensures that the demo page never goes offline or becomes inaccessible.</li>
-	</ul> 
+	</ul>
+	<a name="yamlnotes"></a>
+	<h4>
+		YAML Header Notes
+	</h4>
+	<ul>
+		<li>
+			<p>
+				These are YAML headers, so for lists you can use either syntax:
+			</p>
+<div class="code block"><pre>
+authors: [Jimmy Dean, Buck Kingsley]
+# OR
+authors:
+- Jimmey Dean
+- Buck Kingsley
+</pre></div>
+		</li>
+		<li>
+				You can include other values if you like, but they won't be used by the forge. For example, if you wanted to include data used by your own script builders that's fine so long as these are present.
+		</li>
+		<li>The provides list is a list of components in the current file. This allows you to have a file that might have several utilities and later allow you to split the file up. For example, if you had a file called "CustomSelectors.js" with custom selectors defined for "checked", "empty", and "selected" you consider making your "provides" values "[CustomSelectors.checked, CustomSelectors.empty, CustomSelectors.selected]" which would allow you to, at some future date, split the file up, or consolidate its contents with another file. This allows other plugins to require these components even if you reorganize them in the future.
+		</li>
+		<li>The requires list is a list of components the current file needs in order to run. Each requirement list is preceded by the name of that component (as found in the Forge), the version (tag) your plugin works with, and then a list of components.
+		</li>
+		<li>The names of MooTools Core and MooTools More are simply "core" and "more". All other plugin names are the short name at the end of their url (for instance, the <a href="http://mootools.net/plugins/p/floom">Floom</a> plugin's url is "http://mootools.net/plugins/p/floom" - so "floom" is it's name).
+		</li>
+		<li>To refer to files within the current plugin simply name them with no repo:tag prefix.
+		</li>
+		<li>
+			<p>
+				Plugins can be included wholesale with an asterisk in single quotes, like so:
+			</p>
+<div class="code block"><pre>
+requires: core:1.2.4: '*'
+</pre></div>
+		</li>
+		<li>
+			<p>
+				It is not really recommended that you do this, as it will require users to perhaps load content they don't need in order to run your plugin. It is far better to include only the components that you need.
+			</p>
+		</li>
+		<li>Dependency trees are implied, so if you require core/1.2.4:Class you are also requiring core/1.2.4:Core. You don't need to list implied dependencies, but you can if you like.
+		</li>
+		<li>This dependency system will allow the forge to build a library for users, allowing them to select a group of plugins and then save the built library. Further, it will allow the forge and other tools to at some point in the future run automated tests and present working demos by including the required components. Having a valid dependency map is very important. The forge does not validate that your dependency map is correct, only that it is present.
+		</li>
+		<li>
+			<p>
+				There are several ways you can reference files in the <em>requires</em> section. Here is an annotated version of the example above:
+			</p>
+<div class="code block"><pre>
+requires:
+- localComponent1 //references a component in the current plugin
+- [localComponent2, localComponent3] //several local components in the current plugin
+- externalPackage1:tag/component1 //a single component from an external plugin
+- externalPackage1:tag: component4 //same
+- externalPackage2:tag: [component1, component2] //a list of components from an external plugin
+</pre></div>
+		</li>
+	</ul>
 
 </div>
