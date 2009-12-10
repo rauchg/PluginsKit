@@ -61,6 +61,8 @@ class browseActions extends sfActions
 			}
 		}
 		
+		$c->addDescendingOrderByColumn(PluginPeer::CREATED_AT);
+		
 		# Pager
 		$this->pager = new sfPropelPager('Plugin', sfConfig::get('app_browse_per_page'));
 		$this->pager->setPage($request->getParameter('page', 1));
