@@ -48,13 +48,20 @@ class PluginAddStep6Form extends PluginAddStepForm
 			if (isset($data['requires'])){
 				foreach ($data['requires'] as $a => $b){
 					
-					if (strstr($a, '/')){
-						$pieces = explode('/', $a);
-						$pluginName = $pieces[0];
-						$version = $pieces[1];						
+					if (is_string($b) && preg_match('/([^:]+):([^\/]*)\/(.+)/', $b, $match)){
+					  $pluginName = $match[0];
+					  $version = $match[1];
+					  $b = $match[2];
 					} else {
-						throw new sfValidatorError($validator, sprintf('Dependency "%s" is invalid. The format should be <b>plugin-uid</b>/<b>release</b>: [<b>provided-component</b>, ...]', $a . ': ' . $b ));
+  					if (strstr($a, '/') || strstr($a, ':')){
+  						$pieces = explode(strstr($a, '/') ? '/' : ':', $a);
+  						$pluginName = $pieces[0];
+  						$version = $pieces[1];						
+  					} else {
+  						throw new sfValidatorError($validator, sprintf('Dependency "%s" is invalid. The format should be <b>plugin-uid</b>/<b>release</b>: [<b>provided-component</b>, ...]', $a . ': ' . $b ));
+  					}
 					}
+					
 					
 					$plugin = PluginPeer::retrieveBySlug($pluginName);
 					
