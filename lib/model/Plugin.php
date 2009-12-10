@@ -91,7 +91,7 @@ class Plugin extends BasePlugin
 			$criteria->add(PluginTagPeer::PLUGIN_ID, $this->getId());
 			$criteria->add(PluginTagPeer::NAME, $tag);
 			
-			PluginTagPeer::doDelete($c);
+			PluginTagPeer::doDelete($criteria);
 		}
 		
 		foreach ($tags as $i => $tag){
