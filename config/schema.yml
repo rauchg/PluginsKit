@@ -53,8 +53,6 @@ propel:
     title:            varchar(255)
     content:          longvarchar
     created_at:
-    _uniques:
-      unique_title:   [title]
       
   plugin_screenshot:
     id:
