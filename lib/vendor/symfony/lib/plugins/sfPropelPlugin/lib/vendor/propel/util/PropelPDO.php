@@ -41,6 +41,11 @@
  */
 class PropelPDO extends PDO {
 
+  public function __construct($dsn, $username, $password, $driver_options){
+    parent::__construct($dsn, $username, $password, $driver_options);
+    $this->setAttribute( PDO::ATTR_EMULATE_PREPARES, true );
+  }
+
 	/**
 	 * Attribute to use to set whether to cache prepared statements.
 	 */
