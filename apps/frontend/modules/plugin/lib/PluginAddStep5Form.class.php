@@ -57,7 +57,7 @@ class PluginAddStep5Form extends PluginAddStepForm
 		}
 		
 		$username = sfContext::getInstance()->getUser()->getUsername();
-		if (!sfConfig::get('app_plugin_dev_loose_mode') && ($values['author'] !== $username)){
+		if (sfConfig::get('sf_environment') != 'dev' && ($values['author'] !== $username)){
 			throw new sfValidatorError($validator, sprintf('Your username "%s" and the one specified in package.yml don\'t match.', $username));
 		}
 		

@@ -19,10 +19,6 @@ all:
   git:
     storage_path:       <?php echo sfConfig::get('sf_root_dir') ?>/git/
   
-  plugin:
-    # Dev loose mode lessens the checks for submission in dev environment
-    dev_loose_mode:     on
-  
   browse:
     # How many to display per page
     per_page:           12    
