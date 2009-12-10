@@ -12,5 +12,6 @@ class PluginForm extends BasePluginForm
 {
   public function configure()
   {
+    unset($this['downloads_count']);
   }
 }
