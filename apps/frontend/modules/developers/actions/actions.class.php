@@ -35,7 +35,7 @@ class developersActions extends sfActions
 			$c->add(AuthorPeer::FULLNAME, '%' . $this->form->getValue('search') . '%', Criteria::LIKE);			
 		
 		# Pager
-		$this->pager = new sfPropelPager('Author', 20);
+		$this->pager = new sfPropelPager('Author', 21);
 		$this->pager->setPage($request->getParameter('page', 1));
 		$this->pager->setCriteria($c);
 		$this->pager->init();
