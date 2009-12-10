@@ -29,7 +29,7 @@ class ForgeJSParser
 			throw new ForgeJSParserException('Could not find required YAML header in JS file.');
 		}
 		
-		$this->rawYaml = trim($yaml[2][0]);
+		$this->rawYaml = preg_replace('/$([\s]+)-/m', '$1 -', trim($yaml[2][0]));
 		
 		try {
 			$this->yaml = new sfYamlParser();
@@ -60,13 +60,13 @@ provides:
 license: MIT-style
 requires: 
  core/1.2.3: 
- - Class.Extras
- - Element.Event
- - Element.Style
- - Element.Dimensions
- - Fx.Tween
- - String
- - Array
+  - Class.Extras
+  - Element.Event
+  - Element.Style
+  - Element.Dimensions
+  - Fx.Tween
+  - String
+  - Array
 description: A fully-automated, flexible, customizable carousel class for Mootools.
 authors: 
 - 3n

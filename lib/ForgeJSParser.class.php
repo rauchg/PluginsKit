@@ -22,7 +22,8 @@ class ForgeJSParser
 			throw new ForgeJSParserException('Couldn\'t find required YAML header in JS file.');
 		}
 
-		$this->rawYaml = trim($yaml[2][0]);
+    // hack to support unindented lists. hell might break loose.
+		$this->rawYaml = preg_replace('/$([\s]+)-/m', '$1 -', trim($yaml[2][0]));
 		
 		try {
 			$this->yaml = new ForgeYamlParser($this->rawYaml);
