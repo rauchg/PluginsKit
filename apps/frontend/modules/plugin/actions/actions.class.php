@@ -237,8 +237,7 @@ class pluginActions extends ForgeActions
 				}
 				
 				if (!$form->isValid()){
-					print_r($form->toJson());
-					exit;
+					return $this->renderJson($form->toJson());
 				}
 				
 				$this->getUser()->getAttributeHolder()->remove('plugin.add.' . $addid);
