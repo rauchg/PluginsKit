@@ -234,7 +234,18 @@ class Plugin extends BasePlugin
 				$author->save();
 			}
 		}
+		
 		return $ret;
+	}
+	
+	public function delete(PropelPDO $con = null){
+   	$author = $this->getAuthor();
+  	if ($author)
+  	{
+  		$author->setPluginsCount(intval($author->getPluginsCount()) - 1);
+  		$author->save();
+  	}
+  	return parent::delete($con);
 	}
 	
 }

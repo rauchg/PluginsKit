@@ -35,6 +35,11 @@ class twitterFilter extends sfFilter {
 						{
 							// attempt to authenticate, if user is in db
 							if ($user->twitterLogin($twitterInfo->screen_name)){
+							  
+							  // clear index cache
+            		$cacheManager = sfContext::getInstance()->getViewCacheManager();
+            		$cacheManager->remove('default/index');
+							  
 								$user->setFlash('notice', sprintf('Welcome back %s!', $user->getFirstName()));
 								$controller->redirect('@homepage');
 							} else {

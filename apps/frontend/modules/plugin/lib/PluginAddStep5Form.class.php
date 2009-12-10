@@ -30,7 +30,7 @@ class PluginAddStep5Form extends PluginAddStepForm
 		$catsCriteria->add(TermPeer::CATEGORY, true);
 	
 		$this->setValidators(array(
-			'author' => sfConfig::get('app_plugin_dev_loose_mode') ? new sfValidatorPass : new sfValidatorPropelChoice(array('model' => 'Author', 'column' => 'username', 'required' => true), array('required' => 'The "author:" field in package.yml is required', 'invalid' => 'Please provide a valid username in the "author:" field of your package.yml')),
+			'author' => (sfConfig::get('sf_environment') == 'dev') ? new sfValidatorPass : new sfValidatorPropelChoice(array('model' => 'Author', 'column' => 'username', 'required' => true), array('required' => 'The "author:" field in package.yml is required', 'invalid' => 'Please provide a valid username in the "author:" field of your package.yml')),
 			'arbitrarySections' => new sfValidatorPass,
 			'stabletag' => new sfValidatorPass,
 			'screenshots' => new sfValidatorPass,

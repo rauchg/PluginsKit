@@ -87,6 +87,10 @@ class userActions extends sfActions
 			$this->form = new LoginForm();
 			if ($request->isMethod('post') && $this->form->bindAndSave($request->getParameter('login')))
 			{
+			  // clear index cache
+    		$cacheManager = sfContext::getInstance()->getViewCacheManager();
+    		$cacheManager->remove('default/index');
+			  
 				$this->getUser()->setFlash('notice', sprintf('Welcome back %s!', $this->getUser()->getFirstName()));
 				$this->redirect('@homepage');
 			}			

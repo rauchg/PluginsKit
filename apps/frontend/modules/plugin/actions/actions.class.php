@@ -226,6 +226,10 @@ class pluginActions extends ForgeActions
 				if ($id){
 					$plugin = PluginPeer::retrieveByPk($id);
 					
+  				// clear cache
+      		$cacheManager = sfContext::getInstance()->getViewCacheManager();
+      		$cacheManager->remove('plugin/view?slug=' . $plugin->getSlug());
+					
 					// for propel unique validator isUpdate check
 					$params['id'] = $id;
 					
@@ -234,6 +238,10 @@ class pluginActions extends ForgeActions
 				} else {			
 					$form = new PluginAddForm();			
 					$form->bindAndSave($params);	
+					
+					// clear index cache
+      		$cacheManager = sfContext::getInstance()->getViewCacheManager();
+      		$cacheManager->remove('default/index');
 				}
 				
 				if (!$form->isValid()){

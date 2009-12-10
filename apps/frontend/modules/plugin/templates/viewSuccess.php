@@ -2,12 +2,11 @@
 <?php use_helper('XssSafe') ?>
 
 <?php $raw = $sf_data->getRaw('plugin'); ?>
-
 <div class="block" id="project">
 	<h2 class="green"><span><?php echo $plugin->getTitle() ?> 
 	<?php if ($plugin->getStableTag()): ?><em class="version"><?php echo $plugin->getStableTag()->getName() ?></em><?php endif ?>
 	</span></h2>
-	
+
 	<div class="block" id="project-desc">
 		<?php if ($plugin->getScreenshot()): ?><p id="thumb"><a href="<?php echo url_for_screenshot($plugin->getScreenshot()) ?>" class="remooz"><span class="project_thumb"><?php echo thumbnail_for($plugin) ?></span></a></p><?php endif; ?>
 		<?php echo esc_xsssafe($raw->getDescription()); ?>
