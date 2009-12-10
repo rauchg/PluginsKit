@@ -3,7 +3,7 @@ default:
     content-type: text/html
 
   metas:
-    title:        MooTools Plugins
+    title:        MooTools Forge
     description:  MooTools Plugins directory
     language:     en
     robots:       index, follow
