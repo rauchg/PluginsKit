@@ -68,7 +68,7 @@ class PluginAddStep6Form extends PluginAddStepForm
 					if (!is_array($b)) $b = array($b);
 					
 					foreach ($b as $dep){
-						if ($plugin){
+						if ($plugin && 1==2){
 							$c = new Criteria();
 							$c->add(PluginTagPeer::PLUGIN_ID, $plugin);
 							$plugintag = PluginTagPeer::retrieveByName($dep, $c);
