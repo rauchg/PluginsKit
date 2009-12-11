@@ -16,6 +16,9 @@ class myUser extends sfBasicSecurityUser
 		if (!$this->data)
 		{
 			$this->data = $author;
+			
+			sfConfig::set('sf_cache', false);
+			
 			if (!$this->isAuthenticated())
 			{
 				$this->setAttribute('id', $author->getId());
