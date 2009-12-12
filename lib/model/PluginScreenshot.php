@@ -29,7 +29,7 @@ class PluginScreenshot extends BasePluginScreenshot
 			@copy($this->getUrl(), $tmp);
 			
 			if (@file_get_contents($tmp)){
-				$image = new sfImage($tmp, 'image/png');
+				$image = new sfImage($tmp);
 				$image->saveAs($path . '/' . $filename);
 				$image->thumbnail(sfConfig::get('app_screenshots_' . ($this->isPrimary() ? 'primary' : '') . 'width'), sfConfig::get('app_screenshots_' . ($this->isPrimary() ? 'primary' : '') . 'height'), 'center');
 				$image->saveAs($path . '/thumbs/' . $filename, 'image/png');				
