@@ -34,6 +34,9 @@ class developersActions extends sfActions
 		if ($this->form->getValue('search'))
 			$c->add(AuthorPeer::FULLNAME, '%' . $this->form->getValue('search') . '%', Criteria::LIKE);			
 		
+		if ($this->form->getValue('with_plugins'))
+		  $c->add(AuthorPeer::PLUGINS_COUNT, 1, Criteria::GREATER_EQUAL);
+		
 		# Pager
 		$this->pager = new sfPropelPager('Author', 21);
 		$this->pager->setPage($request->getParameter('page', 1));

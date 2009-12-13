@@ -44,6 +44,7 @@
 			<a href="<?php echo url_for('user', array('username' => $author->getUsername())) ?>">
 				<span class="avatar"><?php echo avatar_for($author) ?></span>
 				<span class="name"><?php echo $author->getFullName() ?></span>
+				<?php if ($author->getPluginsCount()): ?><span class="badge"><?php echo $author->getPluginsCount() ?></span><?php endif ?>				
 			</a>
 		</li>	
 		<?php endforeach ?>

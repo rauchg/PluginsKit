@@ -55,13 +55,17 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 .avatar { display: block; width: 50px; height: 50px; border: 1px solid #999; overflow: hidden; }
 .avatar img { border: 1px solid #fff; }
 
+.badge { position: absolute; width: 17px; height: 17px; display: block; text-align: center; vertical-align: middle; line-height: 17px; background: url('../images/user-badge.png') no-repeat top; color: #333; font-size: 9px; text-shadow: 0 1px 0 #fff; }
+
 .authors { margin: 8px; }
-.authors li { list-style-type: none; display: inline-block; vertical-align: top; }
+.authors li { list-style-type: none; display: inline-block; vertical-align: top; position: relative; }
 .authors li a { text-decoration: none; display: inline-block; width: 90px; padding: 0 3px; text-align: center; font-size: 11px; margin-bottom: 10px; }
 .authors li .avatar, .authors li .name { display: block; margin-bottom: 5px; }
 .authors li .avatar { display: block; width: 50px; height: 50px; margin-left: auto; margin-right: auto; border: 1px solid #999; }
 .authors li .name { display: block; font-weight: bold; color: #464646; }
 .authors li a:hover .name { color: #e79d35; }
+.authors li .badge { top: -8px; right: 15px; }
+.authors li:hover .badge { background-position: bottom; color: #fff; text-shadow: 0 1px 0 #074E99; }
 
 .tags-list { overflow: hidden; zoom: 1; margin: 0; }
 .tags-list li { list-style-type: none; }

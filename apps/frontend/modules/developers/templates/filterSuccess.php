@@ -6,6 +6,7 @@
 	<form action="<?php echo url_for('@developers') ?>" method="get" accept-charset="utf-8" class="horizontal-form">
 		<ul>
 			<li class="input_text"><?php echo $form['search']->renderLabel('Name') ?> <?php echo $form['search']->render() ?></li>	
+			<li class="input_check"><?php echo $form['with_plugins']->renderLabel('With plugins') ?> <?php echo $form['with_plugins']->render() ?></li>	
 			<li class="input_submit"><input type="submit" value="Filter" id="submit_filter" />
 			<?php if ($params->count()): ?>
 			<?php echo link_to('Clear', '@developers') ?>
@@ -24,6 +25,7 @@
 				<a href="<?php echo url_for('user', array('username' => $author->getUsername())) ?>">
 					<span class="avatar"><?php echo avatar_for($author) ?></span>
 					<span class="name"><?php echo highlight_text($author->getFullName(), $form->getValue('search')) ?></span>
+					<?php if ($author->getPluginsCount()): ?><span class="badge"><?php echo $author->getPluginsCount() ?></span><?php endif ?>
 				</a>
 			</li>			
 			<?php endforeach ?>
