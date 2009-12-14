@@ -38,7 +38,6 @@ class feedActions extends sfActions
 	    $item->setTitle($plugin->getTitle());
 	    $item->setLink('@plugin?slug=' . $plugin->getSlug());
 	    $item->setAuthorName($plugin->getAuthor()->getFullName());
-	    $item->setAuthorEmail($plugin->getAuthor()->getEmail());
 	    $item->setPubdate($plugin->getCreatedAt('U'));
 	    $item->setUniqueId($plugin->getSlug());
 	    $item->setContent($plugin->getDescription());
