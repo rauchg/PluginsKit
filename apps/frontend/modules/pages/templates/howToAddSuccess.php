@@ -103,13 +103,12 @@ How to use
 We expect this section for every plugin. It just explains how to use your plugin.
 Never should a plugin rely on a 3rd party link to explain its behavior or functionality. We need this to ensure that if a website is removed or becomes inaccessible, people can still enjoy your plugins' functionality.
 
-It often include code snippets, which are just indented pieces of text:
+It often includes code snippets, which are just indented pieces of text:
 
-	#JS
 	var script = new MyScript()
 	script.doSomething();
 
-If the first line is #JS or #CSS or #HTML, then the code is highlighted accordingly. 
+Syntax highlighting will be done automatically for you.
 
 Screenshots
 -----------
