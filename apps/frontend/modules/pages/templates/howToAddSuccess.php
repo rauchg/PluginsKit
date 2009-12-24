@@ -30,7 +30,7 @@
 				<p>Docs are encouraged. There's a <a href="http://www.nwhite.net/2009/03/05/moodocs-textmate-command/">bundle</a> for TextMate users to make this easier.</p>
 			</li>
 			<li>
-				<h3>Script Headers</h3>
+				<h5>Script Headers</h5>
 				<p>
 					Each script in your <em>/Source</em> directory must have a specific header that includes metadata used by the forge. This header information is a YAML fragment with key/value sets of information that the will use for various features.
 				</p>
@@ -50,9 +50,8 @@ authors:
 requires:
 - localComponent1
 - [localComponent2, localComponent3]
-- externalPackage1:tag/component1
-- externalPackage1:tag: component4
-- externalPackage2:tag: [component1, component2]
+- externalPackage1/tag: component4
+- externalPackage2/tag: [component1, component2]
 
 provides: [Element, Elements, $, $$]
 
@@ -70,9 +69,6 @@ provides: [Element, Elements, $, $$]
 					<li>provides: a list of components that your plugin provides
 					</li>
 				</ul>
-				<p>
-					You can easily test your header by pasting it into <a href="http://yaml-online-parser.appspot.com/">this online YAML tester</a>.
-				</p>
 				<p>
 					<a href="#yamlnotes">See the YAML Header footnotes below for additional tips and details.</a>
 				</p>
@@ -151,71 +147,65 @@ tags: [animation, canvas]
 #demo: http://url.to.demo
 #current: 0.5</pre></div>
 	
-	<h3>Notes:</h3>
+	<hr />
+	
+	<h3>Notes about YAML</h3>
+	
+	<div class="block">	 
+  	<p><a href="http://yaml.org">YAML</a> validness is required. Some general tips and rules:</p>
+  </div>
+  
+	<div class="block">
+  	
+  	<ul class="howto-steps">
+  	  <li>Don't use tabs, use spaces, or the file won't parse.</li>  
+  	  <li>You can easily test your YAML before committing by pasting it into <a href="http://yaml-online-parser.appspot.com/">this online YAML tester</a>.</li>
+      <li>For lists, two syntaxes are available:
+      <div class="code block"><pre>authors: [Jimmy Dean, Buck Kingsley]
+# OR
+authors:
+ - Jimmey Dean
+ - Buck Kingsley</pre></div>
+      </li>
+  	</ul>
+	</div>
+	
+	<hr />
+	
+	<h4>package.yml:</h4>
 	<ul>
-		<li>This is a <a href="http://yaml.org">YAML</a> file. Don't use tabs, use spaces, or the file won't parse.</li>
 		<li>The <strong>category</strong> key has to be one valid, existing category. The list of categories is in the sidebar.</li>
 		<li>Keep <strong>tags</strong> meaningful. Tags that repeat categories names, or stuff like "Javascript", "Cool" are not valuable, and bound to be removed by moderators. Tags that depict techniques or technologies involved are encouraged, such as "canvas", "accessibility".</li>
 		<li>The <strong>current</strong> key points to an existing Git tag in your repository. It's optional, and the last Git tag is used if not present.</li>
 		<li>We recommend using <a href="http://pages.github.com">GitHub pages</a> for <strong>demo</strong>. This ensures that the demo page never goes offline or becomes inaccessible.</li>
 	</ul>
-	<a name="yamlnotes"></a>
-	<h4>
-		YAML Header Notes
+	
+	<hr />
+	
+	<h4 id="yamlnotes">
+		JavaScript files headers:
 	</h4>
-	<ul>
-		<li>
-			<p>
-				These are YAML headers, so for lists you can use either syntax:
-			</p>
-<div class="code block"><pre>
-authors: [Jimmy Dean, Buck Kingsley]
-# OR
-authors:
-- Jimmey Dean
-- Buck Kingsley
-</pre></div>
-		</li>
-		<li>
-				You can include other values if you like, but they won't be used by the forge. For example, if you wanted to include data used by your own script builders that's fine so long as these are present.
+	<ul class="howto-steps">
+		<li>You can include other values if you like, but they won't be used by the forge. For example, if you wanted to include data used by your own script builders that's fine so long as these are present.
 		</li>
 		<li>The provides list is a list of components in the current file. This allows you to have a file that might have several utilities and later allow you to split the file up. For example, if you had a file called "CustomSelectors.js" with custom selectors defined for "checked", "empty", and "selected" you consider making your "provides" values "[CustomSelectors.checked, CustomSelectors.empty, CustomSelectors.selected]" which would allow you to, at some future date, split the file up, or consolidate its contents with another file. This allows other plugins to require these components even if you reorganize them in the future.
 		</li>
 		<li>The requires list is a list of components the current file needs in order to run. Each requirement list is preceded by the name of that component (as found in the Forge), the version (tag) your plugin works with, and then a list of components.
 		</li>
-		<li>The names of MooTools Core and MooTools More are simply "core" and "more". All other plugin names are the short name at the end of their url (for instance, the <a href="http://mootools.net/plugins/p/floom">Floom</a> plugin's url is "http://mootools.net/plugins/p/floom" - so "floom" is it's name).
+		<li>The names of MooTools Core and MooTools More are simply "core" and "more". All other plugin names are the short name at the end of their url (for instance, the <a href="http://mootools.net/plugins/p/floom">Floom</a> plugin's url is "http://mootools.net/plugins/p/<strong>floom</strong>" - so "<strong>floom</strong>" is it's name).
 		</li>
-		<li>To refer to files within the current plugin simply name them with no repo:tag prefix.
-		</li>
-		<li>
-			<p>
-				Plugins can be included wholesale with an asterisk in single quotes, like so:
-			</p>
+		<li>To refer to files within the current plugin simply name them with no repo:tag prefix.</li>
+		<li>Plugins can be included wholesale with an asterisk in single quotes, like so:
 <div class="code block"><pre>
-requires: core:1.2.4: '*'
+requires: 
+  core/1.2.4: '*'
 </pre></div>
-		</li>
-		<li>
-			<p>
-				It is not really recommended that you do this, as it will require users to perhaps load content they don't need in order to run your plugin. It is far better to include only the components that you need.
-			</p>
+
+<p>It is not really recommended that you do this, as it will require users to perhaps load content they don't need in order to run your plugin. It is far better to include only the components that you need.</p>
 		</li>
 		<li>Dependency trees are implied, so if you require core/1.2.4:Class you are also requiring core/1.2.4:Core. You don't need to list implied dependencies, but you can if you like.
 		</li>
-		<li>This dependency system will allow the forge to build a library for users, allowing them to select a group of plugins and then save the built library. Further, it will allow the forge and other tools to at some point in the future run automated tests and present working demos by including the required components. Having a valid dependency map is very important. The forge does not validate that your dependency map is correct, only that it is present.
-		</li>
-		<li>
-			<p>
-				There are several ways you can reference files in the <em>requires</em> section. Here is an annotated version of the example above:
-			</p>
-<div class="code block"><pre>
-requires:
-- localComponent1 //references a component in the current plugin
-- [localComponent2, localComponent3] //several local components in the current plugin
-- externalPackage1:tag/component1 //a single component from an external plugin
-- externalPackage1:tag: component4 //same
-- externalPackage2:tag: [component1, component2] //a list of components from an external plugin
-</pre></div>
+		<li>This dependency system will allow the forge to build a library for users, allowing them to select a group of plugins and then save the built library. Further, it will allow the forge and other tools to at some point in the future run automated tests and present working demos by including the required components. Having a valid dependency map is very important. The forge does not validate that your dependency map is correct, only that it is present (for now).
 		</li>
 	</ul>
 

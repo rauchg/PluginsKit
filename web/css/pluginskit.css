@@ -89,8 +89,8 @@ dl.table dt { float: left; display: block; width: 35%; margin: 0; }
 
 .notice { background: #fffbcc; border: 1px solid #e6db55; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; font-weight: bold; padding: 5px 8px; margin-bottom: 15px; }
 
-ol.howto-steps li { margin-bottom: 10px; }
-ol.howto-steps li .code { margin-top: 10px; }
+.howto-steps li { margin-bottom: 10px; }
+.howto-steps li .code { margin-top: 10px; }
 
 .error_list { margin-left: 0; }
 .error_list li { list-style-type: none; background: rgb(193, 120, 120); color: #fff; font-size: 11px; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; padding: 3px 8px; margin-left: 0; margin-bottom: 10px; }
