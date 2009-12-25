@@ -44,14 +44,8 @@ class GitRepository
 	}
 	
 	public function update(){
-		$command = sprintf('cd %s; %s pull', $this->getPath(), $this->gitPath);
-		sfContext::getInstance()->getLogger()->info('{GitRepository} Executing ' . $command);		
-		// we don't want to escape `;`
-		exec($command, $output, $return);
-		if ($return !== 0){
-			throw new GitRepositoryException('Git pull failed');
-    }
-		return $this;
+	  @rmdir($this->getPath());
+		return $this->checkout();
 	}
 	
 } // END class GitRepository
