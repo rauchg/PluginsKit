@@ -44,7 +44,7 @@ class GitRepository
 	}
 	
 	public function update(){
-	  @rmdir($this->getPath());
+	  exec(escapeshellcmd('rm -rf ' . $this->getPath()));
 		return $this->checkout();
 	}
 	
