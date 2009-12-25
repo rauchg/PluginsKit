@@ -46,9 +46,6 @@ class PluginAddStep6Form extends PluginAddStepForm
 			
 			// check for well formed dependencies
 			if (isset($data['requires'])){
-			  if (!is_array($data['requires'])){
-			    throw new sfValidatorError($validator, 'The requires: section of your JS YAML header should be an array.');
-			  }
 			  
 				foreach ($data['requires'] as $a => $b){
 					
