@@ -47,6 +47,8 @@ class PluginAddStep6Form extends PluginAddStepForm
 			// check for well formed dependencies
 			if (isset($data['requires'])){
 			  
+			  if (!is_array($data['requires'])) $data['requires'] = array($data['requires']);
+			  
 				foreach ($data['requires'] as $a => $b){
 					
 					if (is_string($b) && preg_match('/([^:]+):([^\/]*)\/(.+)/', $b, $match)){
@@ -65,8 +67,7 @@ class PluginAddStep6Form extends PluginAddStepForm
   						throw new sfValidatorError($validator, sprintf('Dependency "%s" is invalid. The format should be <b>plugin-uid</b>/<b>release</b>: [<b>provided-component</b>, ...]', $a . ': ' . $b ));
   					}
 					}
-					
-					
+										
 					$plugin = PluginPeer::retrieveBySlug($pluginName);
 					
 					if (!is_array($b)) $b = array($b);
