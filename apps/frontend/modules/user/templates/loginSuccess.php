@@ -27,7 +27,7 @@
 		<hr class="clear" />		
 	
 		<div class="input_submit">
-			<input type="submit" name="twitter_details_submit" value="Submit" id="twitter_details_submit" />
+			<input type="submit" name="login_submit" value="Submit" id="login_submit" />
 		</div>
 	
 		<?php echo $form->renderHiddenFields() ?>		

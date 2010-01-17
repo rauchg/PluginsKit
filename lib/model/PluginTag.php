@@ -3,6 +3,10 @@
 class PluginTag extends BasePluginTag
 {
 	
+	public function __toString(){
+    return $this->getName();
+	}
+	
 	public function getName($strict = false){
 	  if ($strict && is_numeric($this->name)) return floatval($this->name);
 	  return $this->name;

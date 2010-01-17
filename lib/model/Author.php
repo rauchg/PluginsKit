@@ -2,6 +2,10 @@
 
 class Author extends BaseAuthor
 {
+  
+  public function __toString(){
+    return $this->getUsername();
+  }
 	
 	public function save(PropelPDO $con = null){
 		// unconfirm email upon change

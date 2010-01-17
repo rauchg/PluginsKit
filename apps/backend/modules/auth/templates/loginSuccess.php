@@ -1,0 +1,1 @@
+<p>You have to be logged in and have administrative rights to access this page.</p>

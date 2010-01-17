@@ -1,0 +1,29 @@
+plugin:
+  class: sfPropelRouteCollection
+  options:
+    model:                Plugin
+    module:               plugin
+    prefix_path:          plugin
+    column:               id
+    with_wildcard_routes: true
+
+author:
+  class: sfPropelRouteCollection
+  options:
+    model:                Author
+    module:               author
+    prefix_path:          author
+    column:               id
+    with_wildcard_routes: true
+
+# default rules
+homepage:
+  url:   /
+  param: { module: dashboard, action: index }
+
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*
