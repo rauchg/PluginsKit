@@ -73,6 +73,15 @@
 		</div>
 	
 		<hr class="clear" />		
+		
+		<div class="input_text block">
+			<?php echo $form['phone']->renderLabel('Security question') ?>
+			<?php echo $form['phone']->render() ?>
+			<?php echo $form['phone']->renderError() ?>
+		</div>  
+		<p class="note">What's the name of this JavaScript framework?</p>
+
+		<hr class="clear" />		
 	
 		<div class="input_submit">
 			<input type="submit" name="twitter_details_submit" value="Submit" id="twitter_details_submit" />
