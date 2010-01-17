@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="/favicon.ico" />
   </head>
   <body>
-    <?php if ($sf_user->isAuthenticated()): ?>
+    <?php if ($sf_user->isAuthenticated() && $sf_user->hasCredential('admin')): ?>
     <ul id="nav">
       <li><?php echo link_to('Dashboard', 'dashboard/index') ?></li>
       <li><?php echo link_to('Authors', 'author/index') ?></li>
