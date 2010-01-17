@@ -15,7 +15,7 @@
 <hr class="clear" />
 
 <div class="block">
-	<h3 class="blue"><span>Most downloaded</span></h3>
+	<h3 class="blue"><span>Most downloaded (<?php echo link_to('all', '@browse?sort=downloads_count') ?>)</span></h3>
 	
 	<?php if ($hot->count()): ?>
 	<ul class="projects">
