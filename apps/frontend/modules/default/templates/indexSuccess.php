@@ -1,5 +1,5 @@
 <div class="block">	
-	<h3 class="blue"><span>Recently added <?php echo link_to(image_tag('/images/feed.gif'), 'recentfeed', array('format' => 'rss201')) ?></span></h3>	
+	<h3 class="blue"><span>Recently added (<?php echo link_to('all', '@browse') ?>) <?php echo link_to(image_tag('/images/feed.gif'), 'recentfeed', array('format' => 'rss201')) ?></span></h3>	
 	
 	<?php if ($hot->count()): ?>	
 	<ul class="projects">

@@ -20,7 +20,7 @@ class defaultActions extends sfActions
 		# Recently added
 		$c = new Criteria();
 		$c->addDescendingOrderByColumn(PluginPeer::CREATED_AT);
-		$c->setLimit(3);		
+		$c->setLimit(6);		
 		$this->recent = PluginPeer::doSelect($c);
 		
 		# Most downloaded

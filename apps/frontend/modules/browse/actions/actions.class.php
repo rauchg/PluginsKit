@@ -61,7 +61,15 @@ class browseActions extends sfActions
 			}
 		}
 		
-		$c->addDescendingOrderByColumn(PluginPeer::CREATED_AT);
+		if ($this->form->getValue('sort')){
+		  switch ($this->form->getValue('sort')){
+		    case 'downloads_count':
+		      $c->addDescendingOrderByColumn(PluginPeer::DOWNLOADS_COUNT);
+		      break;
+		  }		  
+		} else {
+		  $c->addDescendingOrderByColumn(PluginPeer::CREATED_AT);
+		}		
 		
 		# Pager
 		$this->pager = new sfPropelPager('Plugin', sfConfig::get('app_browse_per_page'));

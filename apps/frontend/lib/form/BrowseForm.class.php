@@ -18,6 +18,12 @@ class BrowseForm extends sfForm
 			'active' => new sfWidgetFormChoice(array(
 			  'choices' => array_combine(self::$active_choices, self::$active_choices)
 			)),
+			'sort' => new sfWidgetFormChoice(array(
+			  'choices' => array(
+			    '' => 'Added date',
+			    'downloads_count' => 'Downloads'
+			  )
+			)),
 			'official' => new sfWidgetFormInputCheckbox(),
 			'category' => new sfWidgetFormPropelChoice(array(
 			  'model'     => 'Term',
@@ -32,6 +38,7 @@ class BrowseForm extends sfForm
 			'search' => new sfValidatorString(array('required' => false, 'max_length' => 50, 'min_length' => 2)),
 			'active' => new sfValidatorChoice(array('required' => false, 'choices' => self::$active_choices)),
 			'official' => new sfValidatorPass(),
+			'sort' => new sfValidatorPass(),
 			'category' => new sfValidatorPass()
 		));
 		

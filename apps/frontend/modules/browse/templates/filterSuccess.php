@@ -8,6 +8,7 @@
 			<!-- <li class="input_select"><?php echo $form['active']->renderLabel('Last active') ?> <?php echo $form['active']->render() ?></li>	 -->
 			<li class="input_check"><?php echo $form['official']->renderLabel('Official') ?> <?php echo $form['official']->render() ?></li>	
 			<li class="input_select"><?php echo $form['category']->renderLabel('Category') ?> <?php echo $form['category']->render() ?></li>								
+			<li class="input_select"><?php echo $form['sort']->renderLabel('Sort') ?> <?php echo $form['sort']->render() ?></li>								
 			<li class="input_submit"><input type="submit" value="Filter" id="submit_filter" />
 			<?php if ($params->count() && !$form->getValue('tag')): ?>
 			<?php echo link_to('Clear', '@browse') ?>
