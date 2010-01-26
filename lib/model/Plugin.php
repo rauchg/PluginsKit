@@ -32,9 +32,10 @@ class Plugin extends BasePlugin
 		if (is_numeric($term_name)){
 			$term = TermPeer::retrieveByPk($term_name);
 		} else {
-			$slug = sfPropelActAsSluggableBehaviorUtils::stripText(ForgeToolkit::normalizeTag($term_name)); 
+			$slug = sfPropelActAsSluggableBehaviorUtils::stripText(ForgeToolkit::normalizeTag($term_name), '_'); 			
 			$term = TermPeer::retrieveBySlug($slug);	
 		}
+		
 		if (!$term)
 		{
 			$term = new Term();
