@@ -39,8 +39,8 @@ class ForgeMDParser {
 		if(!$html) return;
 		
 		$html = str_replace(
-			array('</pre></code>', '<code>', '</code>'), // In any case, only <pre> remains
-			array('</pre>', '', ''),
+			array('</pre></code>', '<code>', '</code>', '<br>'), // In any case, only <pre> remains
+			array('</pre>', '', '', '<br />'),
 			preg_replace('/<pre><code>#(ruby|asp|js|php|x?html|css)/ie', 'strtolower("<pre class=\"$1\">")', $html)
 		);
 		
