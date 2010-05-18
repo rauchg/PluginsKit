@@ -30,7 +30,7 @@ class PluginAddStep4Form extends PluginAddStepForm
 	
 	public function doValidate($validator, $values){
 		try {
-			$git = new GitRepository(sprintf('http://github.com/%s/%s.git', strtolower($values['user']), strtolower($values['repository'])), sfConfig::get('app_git_storage_path'), sfConfig::get('app_git_command'));
+			$git = new GitRepository(sprintf('git://github.com/%s/%s.git', $values['user'], $values['repository']), sfConfig::get('app_git_storage_path'), sfConfig::get('app_git_command'));
 			$git->fetch();
 			
 			$this->gitRepositoryPath = $git->getPath();			

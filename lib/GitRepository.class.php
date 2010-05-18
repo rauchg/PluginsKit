@@ -44,7 +44,7 @@ class GitRepository
 	}
 	
 	public function update(){
-	  exec(escapeshellcmd('rm -rf ' . $this->getPath()));
+	  if (file_exists($this->getPath())) exec(escapeshellcmd('rm -rf ' . $this->getPath()));
 		return $this->checkout();
 	}
 	
